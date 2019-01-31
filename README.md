@@ -28,6 +28,10 @@ Docker secrets is the best way to store and share sensitive data between contain
 
 ## MariaDB Server
 
+```
+docker run -d -e MYSQL_ROOT_PASSWORD_FILE=mariadb-root-password -e MYSQL_USER_FILE=mariadb-user -e MYSQL_PASSWORD_FILE=mariadb-password -v /etc/mysql/my.cnf:/etc/mysql/my.cnf -v /var/lib/mysql:/var/lib/mysql --network quentinburgniard.com --name mariadb --restart always mariadb
+```
+
 ## OpenVPN server
 https://github.com/kylemanna/docker-openvpn
 
