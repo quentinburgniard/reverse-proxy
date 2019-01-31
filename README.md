@@ -12,6 +12,12 @@ Create a swarm with one node. It's only useful to use `docker secret`.
 docker swarm init
 ```
 
+[Use overlay networks - Docker Documentation](https://docs.docker.com/network/overlay/)
+
+```
+docker network create -d overlay quentinburgniard
+```
+
 ## Only one node ?
 High Availability is not so important for me : the websites are only personal projects. In case of service failure, the Nginx Amplify Agent notify me.
 
@@ -29,7 +35,18 @@ Docker secrets is the best way to store and share sensitive data between contain
 ## MariaDB Server
 
 ```
-docker run -d -e MYSQL_ROOT_PASSWORD_FILE=mariadb-root-password -e MYSQL_USER_FILE=mariadb-user -e MYSQL_PASSWORD_FILE=mariadb-password -v /etc/mysql/my.cnf:/etc/mysql/my.cnf -v /var/lib/mysql:/var/lib/mysql --network quentinburgniard.com --name mariadb --restart always mariadb
+docker service create -d \
+--network quentinburgniard \
+--mount source=/etc/mysql/my.cnf,target=/etc/mysql/my.cnf \
+--mount source=/var/lib/mysql,target=/var/lib/mysql \
+--secret mariadb-root-password \
+--secret mariadb-user \
+--secret mariadb-password \
+-e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mariadb-root-password \
+-e MYSQL_USER_FILE=/run/secrets/mariadb-user \
+-e MYSQL_PASSWORD_FILE=/run/secrets/mariadb-password \
+--name mariadb \
+mariadb
 ```
 
 ## OpenVPN server
