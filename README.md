@@ -4,47 +4,49 @@
 A big project to administrate my websites, based on containerization. The idea is to give me flexibily and agility. The heart of the system is a nginx reverse proxy. It redirect http request to docker containers.
 
 ## Get started
-Create a swarm with one node. It's only useful to use `docker secret`.
-
-[Create a swarm - Docker Documentation](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
+Create a network, the default bridge network is limited https://docs.docker.com/network/bridge/#manage-a-user-defined-bridge
 
 ```
-docker swarm init
+docker network create quentinburgniard.com
 ```
 
-[Use overlay networks - Docker Documentation](https://docs.docker.com/network/overlay/)
+## Nginx Reverse Proxy
+
+https://github.com/nginxinc/docker-nginx-amplify/blob/master/README.md#2-how-to-build-and-run-an-amplify-enabled-nginx-image
 
 ```
-docker network create -d overlay quentinburgniard
+git clone https://github.com/nginxinc/docker-nginx-amplify.git
+cd docker-nginx-amplify
+docker build -t nginx-amplify .
 ```
 
-## Only one node ?
-High Availability is not so important for me : the websites are only personal projects. In case of service failure, the Nginx Amplify Agent notify me.
-
-## Docker secrets
-Docker secrets is the best way to store and share sensitive data between containers.
-
-[Manage sensitive data with Docker secrets  - Docker Documentation](https://docs.docker.com/engine/swarm/secrets/)
+### The location of nginx.conf depends on the package system used to install NGINX and the operating system. It is typically one of /usr/local/nginx/conf, /etc/nginx, or /usr/local/etc/nginx.
 
 ```
-*** | docker secret create mariadb-root-password -
-*** | docker secret create mariadb-user -
-*** | docker secret create mariadb-password -
+docker run -d \
+--network quentinburgniard.com \
+-p 80:80 \
+-p 443:443 \
+--restart always \
+-v /etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+-v /etc/letsencrypt:/etc/letsencrypt:ro \
+-e "API_KEY=***" \
+-e "AMPLIFY_IMAGENAME=quentinburgniard.com" \
+--name nginx-amplify \
+nginx-amplify
 ```
 
 ## MariaDB Server
 
 ```
-docker service create -d \
---network quentinburgniard \
---mount source=/etc/mysql/my.cnf,target=/etc/mysql/my.cnf \
---mount source=/var/lib/mysql,target=/var/lib/mysql \
---secret mariadb-root-password \
---secret mariadb-user \
---secret mariadb-password \
--e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mariadb-root-password \
--e MYSQL_USER_FILE=/run/secrets/mariadb-user \
--e MYSQL_PASSWORD_FILE=/run/secrets/mariadb-password \
+docker run -d \
+--network quentinburgniard.com \
+--restart always \
+-v /etc/mysql/my.cnf:/etc/mysql/my.cnf \
+-v /var/lib/mysql:/var/lib/mysql \
+-e "MYSQL_ROOT_PASSWORD=***" \
+-e "MYSQL_USER=***" \
+-e "MYSQL_PASSWORD=***" \
 --name mariadb \
 mariadb
 ```
@@ -63,5 +65,28 @@ docker run -v openvpn:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn
 
 ## API with WordPress and [Advanced Custom Fields](https://www.advancedcustomfields.com/)
 ```
-docker run --name api-wordpress -e WORDPRESS_DB_HOST=mariadb -e WORDPRESS_DB_USER_FILE=/run/secrets/mariadb-user -e WORDPRESS_DB_PASSWORD_FILE=/run/secrets/mariadb-password -e WORDPRESS_DB_NAME=api-wordpress -d wordpress
+docker run -d \
+--network quentinburgniard.com \
+--restart always \
+-v /var/www/api-wordpress:/var/www/html \
+-e "WORDPRESS_DB_HOST=mariadb" \
+-e "WORDPRESS_DB_NAME=api-wordpress" \
+-e "WORDPRESS_DB_USER=***" \
+-e "WORDPRESS_DB_PASSWORD=***" \
+--name api-wordpress \
+wordpress
+```
+
+
+Optionnal : use phpMyAdmin
+```
+docker run -d \
+--network quentinburgniard.com \
+--restart always \
+-e "PMA_HOST=mariadb" \
+-e "PMA_USER=root" \
+-e "PMA_PASSWORD=***" \
+-e "PMA_ABSOLUTE_URI=https://sql.quentinburgniard.com" \
+--name phpmyadmin \
+phpmyadmin/phpmyadmin
 ```
