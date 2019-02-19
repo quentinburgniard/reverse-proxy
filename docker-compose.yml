@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: quentinburgniard/nginx-amplify
+    environment:
+      API_KEY: $AMPLIFY_API_KEY
+      AMPLIFY_IMAGENAME: $AMPLIFY_IMAGENAME
+    volumes:
+      - letsencrypt:/etc/letsencrypt:ro
+      - .
+    ports:
+      - "${HTTP_PORT}:80"
+      - "${HTTPS_PORT}:443"
+    depends_on:
+      - phpmyadmin
+      - api-wordpress
+    restart: always
+
+  db:
+    container_name: db
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      - mysql:/var/lib/mysql
+    restart: always
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: $MYSQL_ROOT_PASSWORD
+      PMA_ABSOLUTE_URI: https://sql.quentinburgniard.com
+    depends_on:
+      - db
+    restart: always
+
+  api-wordpress:
+    container_name: api-wordpress \
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: $MYSQL_ROOT_PASSWORD
+      WORDPRESS_DB_NAME: $MYSQL_USER
+      WORDPRESS_DB_USER: $MYSQL_PASSWORD
+      WORDPRESS_DB_PASSWORD: $MYSQL_PASSWORD
+      WORDPRESS_CONFIG_EXTRA: "define( 'WP_POST_REVISIONS', 5 ); define( 'WP_AUTO_UPDATE_CORE', true );"
+    volumes:
+      - wp-content:/var/lib/mysql
+    depends_on:
+      - db
+    restart: always
+
+
+
+volumes:
+  letsencrypt:
+  mysql:
+  wp
