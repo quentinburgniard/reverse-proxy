@@ -12,6 +12,18 @@ docker network create quentinburgniard.com
 
 ## Nginx Reverse Proxy
 
+# The location of nginx.conf depends on the package system used to install NGINX and the operating system. It is typically one of /usr/local/nginx/conf, /etc/nginx, or /usr/local/etc/nginx.
+
+```
+git clone https://github.com/quentinburgniard/nginx-reverse-proxy.git /etc/nginx/
+```
+
+https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-by-geoip/
+
+https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/#complete-example
+
+https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/#combining-basic-authentication-with-access-restriction-by-ip-address
+
 https://github.com/nginxinc/docker-nginx-amplify/blob/master/README.md#2-how-to-build-and-run-an-amplify-enabled-nginx-image
 
 ```
@@ -37,6 +49,10 @@ nginx-amplify
 ```
 
 ## MariaDB Server
+
+# mariadb-conf
+https://spin.atomicobject.com/2010/08/23/on-the-importance-of-character-sets-and-character-encodings-in-mysql/
+git clone https://github.com/quentinburgniard/mariadb-conf.git /etc/mysql/my.cnf
 
 ```
 docker run -d \
@@ -68,11 +84,13 @@ docker run -v openvpn:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn
 docker run -d \
 --network quentinburgniard.com \
 --restart always \
--v /var/www/api-wordpress:/var/www/html \
+-v ${HOME}/quentinburgniard.com/api-wordpress:/var/www/html \
+-u www-data:www-data \
 -e "WORDPRESS_DB_HOST=mariadb" \
 -e "WORDPRESS_DB_NAME=api-wordpress" \
 -e "WORDPRESS_DB_USER=***" \
 -e "WORDPRESS_DB_PASSWORD=***" \
+-e "WORDPRESS_CONFIG_EXTRA=define( 'WP_POST_REVISIONS', 5 ); define( 'WP_AUTO_UPDATE_CORE', true );" \
 --name api-wordpress \
 wordpress
 ```
@@ -90,3 +108,6 @@ docker run -d \
 --name phpmyadmin \
 phpmyadmin/phpmyadmin
 ```
+
+
+## Certificates
