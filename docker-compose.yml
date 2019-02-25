@@ -16,7 +16,7 @@ services:
       - "${HTTPS_PORT}:443"
     depends_on:
       - phpmyadmin
-      - api-wordpress
+      - api
     restart: always
 
   db:
@@ -40,9 +40,12 @@ services:
       - db
     restart: always
 
-  api-wordpress:
-    container_name: api-wordpress \
-    image: wordpress
+  api:
+    container_name: api \
+    build:
+      context: api/
+      args:
+        ACF_API_KEY: $ACF_API_KEY
     environment:
       WORDPRESS_DB_HOST: $MYSQL_ROOT_PASSWORD
       WORDPRESS_DB_NAME: $MYSQL_USER
@@ -50,14 +53,13 @@ services:
       WORDPRESS_DB_PASSWORD: $MYSQL_PASSWORD
       WORDPRESS_CONFIG_EXTRA: "define( 'WP_POST_REVISIONS', 5 ); define( 'WP_AUTO_UPDATE_CORE', true );"
     volumes:
-      - wp-content:/var/lib/mysql
+      - wp:/var/www/html
     depends_on:
       - db
     restart: always
 
 
-
 volumes:
   letsencrypt:
   mysql:
-  wp
+  wp:
