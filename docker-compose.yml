@@ -19,8 +19,8 @@ services:
       - api
     restart: always
 
-  db:
-    container_name: db
+  mariadb:
+    container_name: mariadb
     image: mariadb:10
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
@@ -31,12 +31,20 @@ services:
       - mysql:/var/lib/mysql
     restart: always
 
+  mongo:
+    container_name: mongo
+    image: mongo:4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 
+      MONGO_INITDB_ROOT_PASSWORD: 
+      MONGO_INITDB_DATABASE: api
+
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     environment:
-      PMA_HOST: $MYSQL_ROOT_PASSWORD
-      PHPMYADMIN_URI: https://sql.quentinburgniard.com
+      PMA_HOST: mariadb
+      PHPMYADMIN_URI: $PHPMYADMIN_URI
     depends_on:
       - db
     restart: always
@@ -45,20 +53,26 @@ services:
     container_name: api-${API_VERSION}
     image: quentinburgniard/api:${API_VERSION}
     environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_NAME: api
+      APP_NAME: strapi
+      DATABASE_CLIENT: MongoDB
+      DATABASE_HOST: mongo
+      DATABASE_NAME: api
+      DATABASE_USERNAME: 
+      DATABASE_PASSWORD: 
       WORDPRESS_DB_USER: $MYSQL_USER
       WORDPRESS_DB_PASSWORD: $MYSQL_PASSWORD
       WORDPRESS_CONFIG_EXTRA: "define( 'WP_POST_REVISIONS', 5 ); define( 'WP_AUTO_UPDATE_CORE', true );"
     volumes:
-      - wp:/var/www/html
+      - strapi:/usr/src/api/strapi \
     depends_on:
-      - db
+      - mongo
     restart: always
 
   portfolio:
     container_name: portfolio-${PORTFOLIO_VERSION}
     image: quentinburgniard/portfolio:${PORTFOLIO_VERSION}
+    depends_on:
+      - mariadb
     restart: always
 
   cv:
