@@ -21,7 +21,7 @@ services:
 
   db:
     container_name: db
-    image: mariadb
+    image: mariadb:10
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: api
@@ -42,8 +42,8 @@ services:
     restart: always
 
   api:
-    container_name: api
-    image: quentinburgniard/api
+    container_name: api-${API_VERSION}
+    image: quentinburgniard/api:${API_VERSION}
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: api
@@ -56,14 +56,24 @@ services:
       - db
     restart: always
 
-  discover-me:
-    container_name: discover-me
-    image: quentinburgniard/discover-me
+  portfolio:
+    container_name: portfolio-${PORTFOLIO_VERSION}
+    image: quentinburgniard/portfolio:${PORTFOLIO_VERSION}
     restart: always
 
-  discover-me-express-backend:
-    container_name: discover-me-express-backend
-    image: quentinburgniard/discover-me-express-backend
+  cv:
+    container_name: cv-${CV_VERSION}
+    image: quentinburgniard/cv:${CV_VERSION}
+    restart: always
+
+  discover-me:
+    container_name: discover-me-${DISCOVER_ME_VERSION}
+    image: quentinburgniard/discover-me:${DISCOVER_ME_VERSION}
+    restart: always
+
+  discover-me-api:
+    container_name: discover-me-api-${DISCOVER_ME_API_VERSION}
+    image: quentinburgniard/discover-me-api:${DISCOVER_ME_API_VERSION}
     restart: always
 
 volumes:
