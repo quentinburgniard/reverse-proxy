@@ -10,6 +10,12 @@ Create a network, the default bridge network is limited https://docs.docker.com/
 docker network create quentinburgniard.com
 ```
 
+# https://github.com/quentinburgniard/digitalleman#hosts-file
+127.0.1.1 www.quentinburgniard.dev
+127.0.1.1 quentinburgniard.dev
+127.0.1.1 clients.digital-leman.dev
+127.0.1.1 sql.quentinburgniard.dev
+
 ## Nginx Reverse Proxy
 
 # The location of nginx.conf depends on the package system used to install NGINX and the operating system. It is typically one of /usr/local/nginx/conf, /etc/nginx, or /usr/local/etc/nginx.
@@ -111,3 +117,40 @@ phpmyadmin/phpmyadmin
 
 
 ## Certificates
+
+
+
+
+
+
+    # https://wiki.mozilla.org/Security/Server_Side_TLS
+    #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+    # server ciphers should be preferred over client ciphers
+    # http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_prefer_server_ciphers
+    #ssl_prefer_server_ciphers on;
+    #ssl_ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
+
+    # http://nginx.org/en/docs/http/configuring_https_servers.html#certificate_with_several_names
+    #ssl_trusted_certificate ***;
+    #ssl_certificate ***;
+    #ssl_certificate_key ***;
+
+    # inform the browser that it should never load a site using HTTP
+    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+    #Strict-Transport-Security: "max-age=31536000; includeSubDomains";
+
+    # https://docs.nginx.com/nginx/admin-guide/security-controls/terminating-ssl-tcp/#adding-ssl-certificates
+    #ssl_trusted_certificate /etc/letsencrypt/live/quentinburgniard.fr/chain.pem;
+    #ssl_certificate /etc/letsencrypt/live/quentinburgniard.fr/fullchain.pem;
+    #ssl_certificate_key /etc/letsencrypt/live/quentinburgniard.fr/privkey.pem;
+
+    # http://nginx.org/en/docs/http/configuring_https_servers.html#optimization
+    #ssl_session_cache shared:SSL:10m;
+    #ssl_session_timeout 10m;
+
+    # ​​provide information on the validity of its own certificate
+    # https://www.maxcdn.com/one/visual-glossary/ocsp-stapling/
+    #ssl_stapling on;
+
+    # disables emitting nginx version

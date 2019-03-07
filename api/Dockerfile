@@ -1,6 +1,7 @@
-FROM wordpress:5-php7.2-fpm-alpine
+FROM wordpress:5-php7.2
 ARG ACF_API_KEY
-RUN apk add -q --no-cache wget unzip \
+RUN apt update \
+    && apt install wget unzip \
     && wget -q -O advanced-custom-fields-pro.zip "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k=$ACF_API_KEY" \
     && wget -q -O acf-to-rest-api.zip https://downloads.wordpress.org/plugin/acf-to-rest-api.3.1.0.zip \
     && wget -q -O api-wordpress-theme.zip https://github.com/quentinburgniard/api-wordpress-theme/archive/master.zip \

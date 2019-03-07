@@ -4,16 +4,16 @@ services:
 
   reverse-proxy:
     container_name: reverse-proxy
-    image: quentinburgniard/nginx-amplify
+    image: quentinburgniard/reverse-proxy
     environment:
       API_KEY: $AMPLIFY_API_KEY
       AMPLIFY_IMAGENAME: $AMPLIFY_IMAGENAME
     volumes:
       - letsencrypt:/etc/letsencrypt:ro
-      - .
+      - ./reverse-proxy/${ENV}/:/etc/nginx
     ports:
-      - "${HTTP_PORT}:80"
-      - "${HTTPS_PORT}:443"
+      - "80:80"
+      - "443:443"
     depends_on:
       - phpmyadmin
       - api
@@ -24,6 +24,7 @@ services:
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: api
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
     volumes:
@@ -35,21 +36,18 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: $MYSQL_ROOT_PASSWORD
-      PMA_ABSOLUTE_URI: https://sql.quentinburgniard.com
+      PHPMYADMIN_URI: https://sql.quentinburgniard.com
     depends_on:
       - db
     restart: always
 
   api:
-    container_name: api \
-    build:
-      context: api/
-      args:
-        ACF_API_KEY: $ACF_API_KEY
+    container_name: api
+    image: quentinburgniard/api
     environment:
-      WORDPRESS_DB_HOST: $MYSQL_ROOT_PASSWORD
-      WORDPRESS_DB_NAME: $MYSQL_USER
-      WORDPRESS_DB_USER: $MYSQL_PASSWORD
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: api
+      WORDPRESS_DB_USER: $MYSQL_USER
       WORDPRESS_DB_PASSWORD: $MYSQL_PASSWORD
       WORDPRESS_CONFIG_EXTRA: "define( 'WP_POST_REVISIONS', 5 ); define( 'WP_AUTO_UPDATE_CORE', true );"
     volumes:
@@ -58,6 +56,15 @@ services:
       - db
     restart: always
 
+  discover-me:
+    container_name: discover-me
+    image: quentinburgniard/discover-me
+    restart: always
+
+  discover-me-express-backend:
+    container_name: discover-me-express-backend
+    image: quentinburgniard/discover-me-express-backend
+    restart: always
 
 volumes:
   letsencrypt:
