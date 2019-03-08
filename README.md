@@ -4,6 +4,23 @@
 A big project to administrate my websites, based on containerization. The idea is to give me flexibily and agility. The heart of the system is a nginx reverse proxy. It redirect http request to docker containers.
 
 ## Get started
+Because VPS is a bit expensive, and 
+
+```
+docker run -d \
+  --restart=always \
+  --name registry \
+  -v digitalleman_letsencrypt:/etc/letsencrypt:ro \
+  -v "$(pwd)"/auth:/auth \
+  -e "REGISTRY_AUTH=htpasswd" \
+  -e "REGISTRY_AUTH_HTPASSWD_REALM=Quentin Burgniard Registry" \
+  -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+  -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/etc/letsencrypt/live/quentinburgniard.fr/fullchain.pem \
+  -e REGISTRY_HTTP_TLS_KEY=/etc/letsencrypt/live/quentinburgniard.fr/privkey.pem \
+  -p 5000:5000 \
+  registry:2
+```
 Create a network, the default bridge network is limited https://docs.docker.com/network/bridge/#manage-a-user-defined-bridge
 
 ```
