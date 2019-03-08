@@ -7,6 +7,9 @@ A big project to administrate my websites, based on containerization. The idea i
 Because VPS is a bit expensive, and 
 
 ```
+docker run --entrypoint htpasswd registry:2 -Bbn <user> <password> > auth/htpasswd
+
+
 docker run -d \
   --restart=always \
   --name registry \
