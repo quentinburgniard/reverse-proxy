@@ -10,7 +10,7 @@ services:
       AMPLIFY_IMAGENAME: $AMPLIFY_IMAGENAME
     volumes:
       - letsencrypt:/etc/letsencrypt:ro
-      - ./reverse-proxy/${ENV}/:/etc/nginx
+      - ./reverse-proxy/${ENV}:/etc/nginx
     ports:
       - "80:80"
       - "443:443"
@@ -23,20 +23,20 @@ services:
     container_name: mariadb
     image: mariadb:10
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MARIADB_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
       MYSQL_DATABASE: api
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MARIADB_USER: $MARIADB_USER
+      MARIADB_PASSWORD: $MARIADB_PASSWORD
     volumes:
       - mysql:/var/lib/mysql
     restart: always
 
   mongo:
-    container_name: mongo
+    container_name: mongodb
     image: mongo:4
     environment:
-      MONGO_INITDB_ROOT_USERNAME: 
-      MONGO_INITDB_ROOT_PASSWORD: 
+      MONGO_INITDB_ROOT_USERNAME: MONGODB_ROOT_USER
+      MONGODB_ROOT_PASSWORD: $MONGODB_ROOT_PASSWORD
       MONGO_INITDB_DATABASE: api
 
   phpmyadmin:
@@ -46,7 +46,7 @@ services:
       PMA_HOST: mariadb
       PHPMYADMIN_URI: $PHPMYADMIN_URI
     depends_on:
-      - db
+      - mariadb
     restart: always
 
   api:
@@ -55,15 +55,12 @@ services:
     environment:
       APP_NAME: strapi
       DATABASE_CLIENT: MongoDB
-      DATABASE_HOST: mongo
+      DATABASE_HOST: mongodb
       DATABASE_NAME: api
-      DATABASE_USERNAME: 
-      DATABASE_PASSWORD: 
-      WORDPRESS_DB_USER: $MYSQL_USER
-      WORDPRESS_DB_PASSWORD: $MYSQL_PASSWORD
-      WORDPRESS_CONFIG_EXTRA: "define( 'WP_POST_REVISIONS', 5 ); define( 'WP_AUTO_UPDATE_CORE', true );"
+      DATABASE_USERNAME: $MONGODB_ROOT_USER
+      DATABASE_PASSWORD: $MONGODB_ROOT_PASSWORD
     volumes:
-      - strapi:/usr/src/api/strapi \
+      - strapi:/usr/src/api/strapi
     depends_on:
       - mongo
     restart: always
@@ -71,6 +68,8 @@ services:
   portfolio:
     container_name: portfolio-${PORTFOLIO_VERSION}
     image: quentinburgniard/portfolio:${PORTFOLIO_VERSION}
+    volumes:
+      - ./portfolio:/var/www/html
     depends_on:
       - mariadb
     restart: always
@@ -93,4 +92,4 @@ services:
 volumes:
   letsencrypt:
   mysql:
-  wp:
+  strapi:
