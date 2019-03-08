@@ -7,25 +7,35 @@ services:
     image: registry:2
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:5000
-      REGISTRY_HTTP_TLS_CERTIFICATE: /etc/letsencrypt/live/quentinburgniard.fr/fullchain.pem
-      REGISTRY_HTTP_TLS_KEY: /etc/letsencrypt/live/quentinburgniard.fr/privkey.pem
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/fullchain.pem
+      REGISTRY_HTTP_TLS_KEY: /certs/privkey.pem
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Quentin Burgniard Registry
       REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
-      REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API__SECRETKEY
+      REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
       REGISTRY_STORAGE_S3_REGION: us-east-1
       REGISTRY_STORAGE_S3_bucket: registry.quentinburgniard.com
       REGISTRY_LOG_LEVEL: error
     volumes:
-      - letsencrypt:/etc/letsencrypt:ro
+      - certs:/certs:ro
     ports:
       - 5000:5000
     depends_on:
       - letsencrypt
     restart: always
 
+  letsencrypt-dns-challenge:
+      container_name: letsencrypt-dns-challenge
+      image: certbot/dns-digitalocean
+      command: certonly -n --agree-tos -m quentinburgniard.com --fullchain-path /certs/fullchain.pem --key-path /certs/privkey.pem --chain-path /certs/chain.pem --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -d *.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr,digital-leman.com,quentinburgniard.com,quentinburgniard.fr
+      volumes:
+        - certs:/certs
+        - letsencrypt:/var/lib/letsencrypt
+        - ./letsencrypt-dns-challenge/digitalocean.ini:/digitalocean.ini
+
 volumes:
-  registry:
-  letsencrypt:
   auth:
+  certs:
+  letsencrypt:
+  
