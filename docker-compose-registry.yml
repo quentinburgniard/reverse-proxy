@@ -18,7 +18,7 @@ services:
   letsencrypt-dns-challenge:
       container_name: letsencrypt-dns-challenge
       image: certbot/dns-digitalocean
-      command: certonly -v --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d digital-leman.com,quentinburgniard.com,quentinburgniard.fr,*.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr
+      command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d digital-leman.com,quentinburgniard.com,quentinburgniard.fr,*.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr
       volumes:
         - letsencrypt:/etc/letsencrypt
         - ./letsencrypt-dns-challenge/digitalocean.ini:/digitalocean.ini:ro
