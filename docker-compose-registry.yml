@@ -22,7 +22,7 @@ services:
     ports:
       - 5000:5000
     depends_on:
-      - letsencrypt
+      - letsencrypt-dns-challenge
     restart: always
 
   letsencrypt-dns-challenge:
