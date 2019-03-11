@@ -9,7 +9,7 @@ services:
       REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
       REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
     volumes:
-      - certs:/certs:ro
+      - letsencrypt:/etc/letsencrypt:ro
       - ./registry/config.yml:/etc/docker/registry/config.yml
     ports:
       - 5000:5000
@@ -18,14 +18,12 @@ services:
   letsencrypt-dns-challenge:
       container_name: letsencrypt-dns-challenge
       image: certbot/dns-digitalocean
-      command: certonly -v --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com --cert-path /certs --fullchain-path /certs/fullchain.pem --key-path /certs/privkey.pem --chain-path /certs/chain.pem  -d *.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr,digital-leman.com,quentinburgniard.com,quentinburgniard.fr
+      command: certonly -v --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d digital-leman.com,quentinburgniard.com,quentinburgniard.fr,*.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr
       volumes:
-        - certs:/certs
-        - letsencrypt:/var/lib/letsencrypt
+        - letsencrypt:/etc/letsencrypt
         - ./letsencrypt-dns-challenge/digitalocean.ini:/digitalocean.ini:ro
 
 volumes:
   auth:
-  certs:
   letsencrypt:
   
