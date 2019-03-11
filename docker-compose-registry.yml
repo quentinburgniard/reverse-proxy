@@ -6,17 +6,8 @@ services:
     container_name: registry
     image: registry:2
     environment:
-      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
-      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/fullchain.pem
-      REGISTRY_HTTP_TLS_KEY: /certs/privkey.pem
-      REGISTRY_AUTH: htpasswd
-      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
-      REGISTRY_AUTH_HTPASSWD_REALM: Quentin Burgniard Registry
       REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
       REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
-      REGISTRY_STORAGE_S3_REGION: us-east-1
-      REGISTRY_STORAGE_S3_bucket: registry.quentinburgniard.com
-      REGISTRY_LOG_LEVEL: error
     volumes:
       - certs:/certs:ro
     ports:

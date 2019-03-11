@@ -1,0 +1,17 @@
+version: 0.1
+log:
+  level: error
+storage:
+  s3:
+    region: us-east-1
+    regionendpoint: http://myobjects.local
+    bucket: registry.quentinburgniard.com
+auth:
+  htpasswd:
+    realm: Quentin Burgniard Registry
+    path: /auth/htpasswd
+http:
+  addr: 0.0.0.0:5000
+  tls:
+    certificate: /certs/fullchain.pem
+    key: /certs/privkey.pem
