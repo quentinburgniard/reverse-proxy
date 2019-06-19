@@ -28,15 +28,26 @@ services:
     volumes:
       - ./registry/htpasswd:/auth/htpasswd:ro
       - certs:/etc/letsencrypt:ro
-      - ./registry/config.yml:/etc/docker/registry/config.yml
+      - ./registry/${ENV}/config.yml:/etc/docker/registry/config.yml
     ports:
-      - 5000:5000
+      - "5000:5000"
+    depends_on:
+      - registry-htpasswd
+      - letsencrypt-dns-challenge
     restart: always
+    
+  registry-htpasswd:
+    container_name: registry-htpasswd
+    image: registry:2
+    entrypoint: htpasswd
+    command: -Bbn $DOCKER_REGISTRY_USER $DOCKER_REGISTRY_PASSWORD > /auth/htpasswd
+    volumes:
+      - ./registry:/auth
 
   letsencrypt-dns-challenge:
     container_name: letsencrypt-dns-challenge
     image: certbot/dns-digitalocean
-    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d digital-leman.com,quentinburgniard.com,quentinburgniard.fr,*.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr
+    #command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d digital-leman.com,quentinburgniard.com,quentinburgniard.fr,*.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr
     volumes:
       - certs:/etc/letsencrypt
       - ./letsencrypt-dns-challenge/digitalocean.ini:/digitalocean.ini:ro
@@ -74,7 +85,7 @@ services:
 
   api:
     container_name: api-${API_VERSION}
-    image: quentinburgniard/api:${API_VERSION}
+    image: ${DOCKER_REGISTRY}/quentinburgniard/api:${API_VERSION}
     environment:
       APP_NAME: strapi
       DATABASE_CLIENT: MongoDB
