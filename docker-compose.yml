@@ -2,9 +2,9 @@ version: "3"
 
 services:
 
-  reverse-proxy:
+  reverse-proxy-${REVERSE_PROXY_VERSION}:
     container_name: reverse-proxy
-    image: quentinburgniard/reverse-proxy
+    image: ${DOCKER_REGISTRY}/reverse-proxy:${REVERSE_PROXY_VERSION}
     environment:
       API_KEY: $AMPLIFY_API_KEY
       AMPLIFY_IMAGENAME: $AMPLIFY_IMAGENAME
@@ -15,8 +15,16 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
+      - letsencrypt-dns-challenge
+      - mariadb
+      - mongodb
       - phpmyadmin
-      - api
+      - api-${API_VERSION}
+      - cloud-${CLOUD_VERSION}
+      - portfolio-${PORTFOLIO_VERSION}
+      - cv
+      - discover-me
+      - discover-me-api
     restart: always
     
   registry:
@@ -26,11 +34,11 @@ services:
       REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
       REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
     volumes:
+      - ./registry/${ENV}/config.yml:/etc/docker/registry/config.yml
       - ./registry/htpasswd:/auth/htpasswd:ro
       - certs:/etc/letsencrypt:ro
-      - ./registry/${ENV}/config.yml:/etc/docker/registry/config.yml
     ports:
-      - "5000:5000"
+      - "80:5000"
     depends_on:
       - registry-htpasswd
       - letsencrypt-dns-challenge
@@ -40,14 +48,14 @@ services:
     container_name: registry-htpasswd
     image: registry:2
     entrypoint: htpasswd
-    command: -Bbn $DOCKER_REGISTRY_USER $DOCKER_REGISTRY_PASSWORD > /auth/htpasswd
+    command: -bcB -C 17 /auth/htpasswd $DOCKER_REGISTRY_USER $DOCKER_REGISTRY_PASSWORD
     volumes:
       - ./registry:/auth
 
   letsencrypt-dns-challenge:
     container_name: letsencrypt-dns-challenge
     image: certbot/dns-digitalocean
-    #command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d digital-leman.com,quentinburgniard.com,quentinburgniard.fr,*.digital-leman.com,*.quentinburgniard.com,*.quentinburgniard.fr
+    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d $DOMAIN_NAME
     volumes:
       - certs:/etc/letsencrypt
       - ./letsencrypt-dns-challenge/digitalocean.ini:/digitalocean.ini:ro
@@ -65,7 +73,7 @@ services:
       - ./mariadb/my.cnf:/etc/mysql/my.cnf:ro
     restart: always
 
-  mongo:
+  mongodb:
     container_name: mongodb
     image: mongo:4
     environment:
@@ -83,9 +91,9 @@ services:
       - mariadb
     restart: always
 
-  api:
-    container_name: api-${API_VERSION}
-    image: ${DOCKER_REGISTRY}/quentinburgniard/api:${API_VERSION}
+  api-${API_VERSION}:
+    container_name: api
+    image: strapi/strapi
     environment:
       APP_NAME: strapi
       DATABASE_CLIENT: MongoDB
@@ -96,11 +104,11 @@ services:
     volumes:
       - strapi:/usr/src/api/strapi
     depends_on:
-      - mongo
+      - mongodb
     restart: always
     
-  cloud:
-    container_name: cloud-${CLOUD_VERSION}
+  cloud-${CLOUD_VERSION}:
+    container_name: cloud
     image: nextcloud
     environment:
       NEXTCLOUD_ADMIN_USER: $NEXTCLOUD_ADMIN_USER
@@ -117,8 +125,8 @@ services:
       - mariadb
     restart: always
 
-  portfolio:
-    container_name: portfolio-${PORTFOLIO_VERSION}
+  portfolio-${PORTFOLIO_VERSION}:
+    container_name: portfolio
     image: quentinburgniard/portfolio:${PORTFOLIO_VERSION}
     depends_on:
       - mariadb
