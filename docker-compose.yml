@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  reverse-proxy-${REVERSE_PROXY_VERSION}:
+  reverse-proxy:
     container_name: reverse-proxy
     image: ${DOCKER_REGISTRY}/reverse-proxy:${REVERSE_PROXY_VERSION}
     environment:
@@ -19,9 +19,9 @@ services:
       - mariadb
       - mongodb
       - phpmyadmin
-      - api-${API_VERSION}
-      - cloud-${CLOUD_VERSION}
-      - portfolio-${PORTFOLIO_VERSION}
+      - api
+      - cloud
+      - portfolio
       - cv
       - discover-me
       - discover-me-api
@@ -91,7 +91,7 @@ services:
       - mariadb
     restart: always
 
-  api-${API_VERSION}:
+  api:
     container_name: api
     image: strapi/strapi
     environment:
@@ -107,7 +107,7 @@ services:
       - mongodb
     restart: always
     
-  cloud-${CLOUD_VERSION}:
+  cloud:
     container_name: cloud
     image: nextcloud
     environment:
@@ -125,7 +125,7 @@ services:
       - mariadb
     restart: always
 
-  portfolio-${PORTFOLIO_VERSION}:
+  portfolio:
     container_name: portfolio
     image: quentinburgniard/portfolio:${PORTFOLIO_VERSION}
     depends_on:
@@ -133,17 +133,17 @@ services:
     restart: always
 
   cv:
-    container_name: cv-${CV_VERSION}
+    container_name: cv
     image: quentinburgniard/cv:${CV_VERSION}
     restart: always
 
   discover-me:
-    container_name: discover-me-${DISCOVER_ME_VERSION}
+    container_name: discover-me
     image: quentinburgniard/discover-me:${DISCOVER_ME_VERSION}
     restart: always
 
   discover-me-api:
-    container_name: discover-me-api-${DISCOVER_ME_API_VERSION}
+    container_name: discover-me-api
     image: quentinburgniard/discover-me-api:${DISCOVER_ME_API_VERSION}
     restart: always
 
