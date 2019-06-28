@@ -13,5 +13,5 @@ auth:
 http:
   addr: 0.0.0.0:5000
   tls:
-    certificate: /etc/letsencrypt/live/digital-leman.com/fullchain.pem
-    key: /etc/letsencrypt/live/digital-leman.com/privkey.pem
+    certificate: /etc/letsencrypt/live/registry.quentinburgniard.com/fullchain.pem
+    key: /etc/letsencrypt/live/registry.quentinburgniard.com/privkey.pem
