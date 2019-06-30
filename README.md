@@ -6,6 +6,7 @@ A big project to administrate my websites, based on containerization. The idea i
 ## Get started
 Because VPS is a bit expensive, and ...
 
+- add the config file to docker daemon
 - Copy hosts locate in reverse-proxy/dev/hosts
 
 ## Nginx Amplify
@@ -17,7 +18,7 @@ docker build -t nginx-amplify .
 
 ## Configure the default logging driver
 
-`docker config create docker/daemon.yml`
+`sudo cp ./docker/daemon.yml /etc/docker/daemon.yml`
 
 ## Source
 
