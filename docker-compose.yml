@@ -31,10 +31,11 @@ services:
     container_name: registry
     image: registry:2
     environment:
+      REGISTRY_STORAGE_S3_BUCKET: $DOCKER_REGISTRY
       REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
       REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
     volumes:
-      - ./registry/${ENV}/config.yml:/etc/docker/registry/config.yml
+      - ./registry/config.yml:/etc/docker/registry/config.yml
       - ./registry/htpasswd:/auth/htpasswd:ro
       - certs:/etc/letsencrypt:ro
     ports:
