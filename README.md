@@ -15,6 +15,10 @@ cd docker-nginx-amplify
 docker build -t nginx-amplify .
 ```
 
+## Configure the default logging driver
+
+`docker config create docker/daemon.yml`
+
 ## Source
 
 

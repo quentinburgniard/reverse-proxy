@@ -38,7 +38,7 @@ services:
       - ./registry/htpasswd:/auth/htpasswd:ro
       - certs:/etc/letsencrypt:ro
     ports:
-      - "443:5000"
+      - "443:443"
     depends_on:
       - registry-htpasswd
       - letsencrypt-dns-challenge
