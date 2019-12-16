@@ -7,22 +7,20 @@ services:
     environment:
       APP_NAME: api
       DATABASE_CLIENT: mongo
-      DATABASE_HOST: mongodb
+      DATABASE_HOST: api-db
       DATABASE_NAME: api
       DATABASE_USERNAME: $MONGO_ROOT_USER
       DATABASE_PASSWORD: $MONGO_ROOT_PASSWORD
     volumes:
-      - strapi:/usr/src/api/strapi
+      - api:/usr/src/api/strapi
     depends_on:
-      - mongodb
+      - api-db
     restart: always
 
   cloud:
     container_name: cloud
-    image: nextcloud
+    image: nextcloud:15
     environment:
-      MYSQL_HOST: mariadb
-      MYSQL_DATABASE: cloud
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       NEXTCLOUD_ADMIN_USER: $NEXTCLOUD_ADMIN_USER
@@ -32,6 +30,11 @@ services:
       SMTP_PORT: $SMTP_PORT
       SMTP_NAME: $SMTP_NAME
       SMTP_PASSWORD: $SMTP_PASSWORD
+    volumes:
+      - ./cloud/config:/var/www/html/config
+      - ./cloud/themes:/var/www/html/themes
+    depends_on:
+      - cloud-db
     restart: always
     
   cv:
@@ -56,35 +59,35 @@ services:
       - api
     restart: always
 
-  letsencrypt-certificate:
+  ssl-certificate:
     container_name: letsencrypt-certificate
     image: certbot/dns-digitalocean
-    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d $DOMAIN_NAME
+    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d $MAIN_DOMAIN -d $DOMAINS
     volumes:
-      - certs:/etc/letsencrypt
+      - ssl-certificate:/etc/letsencrypt/live/${MAIN_DOMAIN}
       - ./letsencrypt-dns-challenge/digitalocean.ini:/etc/digitalocean.ini:ro
 
-  mariadb:
-    container_name: mariadb
+  cloud-db:
+    container_name: cloud-db
     image: mariadb:10
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_DATABASE: cloud
     volumes:
-      - mariadb:/var/lib/mysql
+      - cloud-db:/var/lib/mysql
     restart: always
 
-  mongodb:
-    container_name: mongodb
+  api-db:
+    container_name: api-db
     image: mongo:4
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PASSWORD
       MONGO_INITDB_DATABASE: api
     volumes:
-      - mongodb:/data/db
+      - api-db:/data/db
     restart: always
       
   portfolio:
@@ -101,22 +104,22 @@ services:
       REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
     volumes:
       - ./registry/config.yml:/etc/docker/registry/config.yml
-      - ./registry/htpasswd:/auth/htpasswd:ro
-      - certs:/etc/letsencrypt:ro
+      - registry-password:/registry-password:ro
+      - ssl-certificate:/ssl-certificate:ro
     ports:
       - "443:443"
     depends_on:
-      - letsencrypt-certificate
-      - registry-htpasswd
+      - ssl-certificate
+      - registry-password
     restart: always
     
-  registry-htpasswd:
-    container_name: registry-htpasswd
+  registry-password:
+    container_name: registry-password
     image: registry:2
     entrypoint: htpasswd
     command: -bcB -C 17 /auth/htpasswd $DOCKER_REGISTRY_USER $DOCKER_REGISTRY_PASSWORD
     volumes:
-      - ./registry:/auth
+      - registry-password:/auth
 
   reverse-proxy:
     container_name: reverse-proxy
@@ -125,23 +128,22 @@ services:
       API_KEY: $AMPLIFY_API_KEY
       AMPLIFY_IMAGENAME: $AMPLIFY_IMAGENAME
     volumes:
-      - certs:/certs:ro
+      - ssl-certificate:/ssl-certificate:ro
       - ./reverse-proxy/${ENV}/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./reverse-proxy/conf.d:/etc/nginx/conf.d:ro
     ports:
       - $HTTP
       - $HTTPS
     depends_on:
-      - letsencrypt-certificate
       - api
       - cloud
       - cv
       - discover-me
-      - discover-me-api
       - portfolio
 
 volumes:
-  certs:
-  mariadb:
-  mongodb:
-  strapi:
+  api-db:
+  cloud-db:
+  registry-password:
+  ssl-certificate:
+  api:
