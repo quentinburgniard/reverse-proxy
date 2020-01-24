@@ -1,6 +1,14 @@
+language: shell
+
 services: docker
 
-# install:
+branches: master
+
+install: echo install
+
+deploy:
+  provider: script
+  script: echo deploy
 
 # after_success:
 #   - echo success
@@ -11,7 +19,11 @@ services: docker
 # env:
 #   - DB=mongodb
 #   - DB=redis
-#   - DB=mysql
+#   - DB=mysqlenv:
+#  global:
+#    - FOO: foo
+#    jobs:
+#    - FOO: foo
 
 # jobs:
 #   include:
@@ -31,6 +43,4 @@ services: docker
 
 # addons:
 #   ssh_known_hosts: digital-leman.com
-#   hosts:
-#     - travis.test
-#     - joshkalderimis.com
+#   hosts: digital-leman.com
