@@ -1,37 +1,36 @@
-
 services: docker
 
-install:
+# install:
 
-after_success:
-  - echo success
+# after_success:
+#   - echo success
 
-after_failure:
-  - echo failure
+# after_failure:
+#   - echo failure
 
-env:
-  - DB=mongodb
-  - DB=redis
-  - DB=mysql
+# env:
+#   - DB=mongodb
+#   - DB=redis
+#   - DB=mysql
 
-jobs:
-  include:
-  - stage: test
-  script: docker --version
-  name: "Unit Tests"
-  - stage: deploy
-  script: docker ps
+# jobs:
+#   include:
+#   - stage: test
+#   script: docker --version
+#   name: "Unit Tests"
+#   - stage: deploy
+#   script: docker ps
 
-deploy:
-  provider: script
-  script: docker ps
+# deploy:
+#   provider: script
+#   script: docker ps
 
-#branches:
-#  only: master
-jobs:
+# #branches:
+# #  only: master
+# jobs:
 
-addons:
-  ssh_known_hosts: digital-leman.com
-  hosts:
-    - travis.test
-    - joshkalderimis.com
+# addons:
+#   ssh_known_hosts: digital-leman.com
+#   hosts:
+#     - travis.test
+#     - joshkalderimis.com
