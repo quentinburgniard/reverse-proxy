@@ -4,46 +4,25 @@ services: docker
 
 branches: master
 
-install: echo install
+install: docker-compose up reverse-proxy
 
-deploy:
-  provider: script
-  script: echo deploy
+env:
+  - DB=mongodb
+  - DB=redis
+  - DB=mysqlenv
 
-# after_success:
-#   - echo success
+script:
+  - docker ps
 
-# after_failure:
-#   - echo failure
+deploy:	
+  provider: script	
+  script:
+#    - ssh -t $CI_USER@$CI_HOST "git pull ${CI_DIRECTORY} && docker ps"
+    - echo deploy
 
-# env:
-#   - DB=mongodb
-#   - DB=redis
-#   - DB=mysqlenv:
-#  global:
-#    - FOO: foo
-#    jobs:
-#    - FOO: foo
-
-# jobs:
-#   include:
-#   - stage: test
-#   script: docker --version
-#   name: "Unit Tests"
-#   - stage: deploy
-#   script: docker ps
-
-# deploy:
-#   provider: script
-#   script: docker ps
-
-# #branches:
-# #  only: master
-# jobs:
-
-# addons:
-#   ssh_known_hosts: digital-leman.com
-#   hosts: digital-leman.com
+addons:
+  ssh_known_hosts: digital-leman.com
+# hosts: digital-leman.com
 
 notifications:
   slack:
