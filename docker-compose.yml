@@ -30,11 +30,10 @@ services:
       MYSQL_PASSWORD: $CLOUD_DB_PASSWORD
     depends_on:
       - cloud-db
-    restart: always
-
+    restart: alway
   cloud-db:
     container_name: cloud-db  
-    image: library/mariadb:10
+    image: docker.io/library/mariadb:10
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: $CLOUD_DB_USER
