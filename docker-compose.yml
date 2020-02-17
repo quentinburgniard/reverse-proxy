@@ -109,7 +109,7 @@ services:
       - registry-password:/registry-password:ro
       - ssl-certs:/ssl-certs:ro
     ports:
-      - "443:443"
+      - 443:443
     depends_on:
       - ssl-certs-${ENV}
       - registry-password
@@ -134,8 +134,8 @@ services:
       - ./reverse-proxy/${ENV}/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./reverse-proxy/conf.d:/etc/nginx/conf.d:ro
     ports:
-      - $HTTP
-      - $HTTPS
+      - 80:80
+      - 443:443
     depends_on:
       - api
       - cloud
