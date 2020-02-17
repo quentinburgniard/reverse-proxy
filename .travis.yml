@@ -15,7 +15,7 @@ env: |
   PORTFOLIO_VERSION=2.0
   REVERSE_PROXY_VERSION=1.1
 
-install: docker-compose up -d --quiet-pull reverse-proxy
+install: docker-compose up -d reverse-proxy
 
 script:
   - docker ps

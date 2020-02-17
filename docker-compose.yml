@@ -34,7 +34,7 @@ services:
 
   cloud-db:
     container_name: cloud-db  
-    image: mariadb:10
+    image: library/mariadb:10
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: $CLOUD_DB_USER
