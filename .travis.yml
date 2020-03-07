@@ -31,7 +31,7 @@ deploy:
     - echo deploy
 
 addons:
-  ssh_known_hosts: digital-leman.com
+  #ssh_known_hosts: digital-leman.com
 # hosts: digital-leman.com
 
 notifications:

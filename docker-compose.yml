@@ -17,6 +17,17 @@ services:
       - api-db
     restart: always
 
+  api-db:
+    container_name: api-db
+    image: mongo:4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PASSWORD
+      MONGO_INITDB_DATABASE: api
+    volumes:
+      - api-db:/data/db
+    restart: always
+
   cloud:
     container_name: cloud
     image: nextcloud:18
@@ -30,7 +41,7 @@ services:
       MYSQL_PASSWORD: $CLOUD_DB_PASSWORD
     depends_on:
       - cloud-db
-    restart: alway
+    restart: always
 
   cloud-db:
     container_name: cloud-db  
@@ -52,6 +63,8 @@ services:
   discover-me:
     container_name: discover-me
     image: ${DOCKER_REGISTRY}/discover-me:${DISCOVER_ME_VERSION}
+    depends_on:
+      - discover-me-api
     restart: always
 
   discover-me-api:
@@ -66,37 +79,11 @@ services:
       - api
     restart: always
 
-  ssl-certs-dev:
-    container_name: ssl-certs-dev
-    image: frapsoft/openssl
-    command: req -keyout /ssl-certs/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
-    volumes:
-      - ssl-certs:/ssl-certs
-
-  ssl-certs-prod:
-    container_name: ssl-certs-prod
-    image: certbot/dns-digitalocean
-    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d $MAIN_DOMAIN -d $DOMAINS
-    volumes:
-      - ssl-certs:/etc/letsencrypt/live/${MAIN_DOMAIN}
-      - ./letsencrypt-dns-challenge/digitalocean.ini:/etc/digitalocean.ini:ro
-
-  api-db:
-    container_name: api-db
-    image: mongo:4
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
-      MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PASSWORD
-      MONGO_INITDB_DATABASE: api
-    volumes:
-      - api-db:/data/db
-    restart: always
-      
   portfolio:
     container_name: portfolio
     image: ${DOCKER_REGISTRY}/portfolio:${PORTFOLIO_VERSION}
     restart: always
-    
+
   registry:
     container_name: registry
     image: registry:2
@@ -111,18 +98,24 @@ services:
     ports:
       - 443:443
     depends_on:
+      - registry-cache
       - ssl-certs-${ENV}
       - registry-password
     restart: always
-    
+  
+  registry-cache:
+    container_name: registry-cache
+    image: redis:5
+    restart: always
+      
   registry-password:
     container_name: registry-password
     image: registry:2
     entrypoint: htpasswd
-    command: -bcB -C 17 /auth/htpasswd $DOCKER_REGISTRY_USER $DOCKER_REGISTRY_PASSWORD
+    command: -bcB -C 17 /registry-password/htpasswd $DOCKER_REGISTRY_USER $DOCKER_REGISTRY_PASSWORD
     volumes:
-      - registry-password:/auth
-
+      - registry-password:/registry-password/htpasswd
+  
   reverse-proxy:
     container_name: reverse-proxy
     image: ${DOCKER_REGISTRY}/reverse-proxy:${REVERSE_PROXY_VERSION}
@@ -131,8 +124,7 @@ services:
       AMPLIFY_IMAGENAME: $AMPLIFY_IMAGENAME
     volumes:
       - ssl-certs:/ssl-certs:ro
-      - ./reverse-proxy/${ENV}/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./reverse-proxy/conf.d:/etc/nginx/conf.d:ro
+      - ./reverse-proxy:/etc/nginx:ro
     ports:
       - 80:80
       - 443:443
@@ -143,6 +135,21 @@ services:
       - discover-me
       - portfolio
       - ssl-certs-${ENV}
+  
+  ssl-certs-dev:
+    container_name: ssl-certs-dev
+    image: frapsoft/openssl
+    command: req -keyout /ssl-certs/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
+    volumes:
+      - ssl-certs:/ssl-certs
+
+  ssl-certs-prod:
+    container_name: ssl-certs-prod
+    image: certbot/dns-digitalocean
+    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d $MAIN_DOMAIN -d $DOMAINS
+    volumes:
+      - ssl-certs:/etc/letsencrypt/live/${MAIN_DOMAIN}
+      - ./letsencrypt-dns-challenge/digitalocean.ini:/etc/digitalocean.ini:ro
 
 volumes:
   api-db:
