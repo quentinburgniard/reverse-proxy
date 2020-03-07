@@ -19,7 +19,7 @@ services:
 
   cloud:
     container_name: cloud
-    image: cloud
+    image: nextcloud:18
     environment:
       NEXTCLOUD_ADMIN_USER: $CLOUD_USER
       NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
@@ -31,9 +31,10 @@ services:
     depends_on:
       - cloud-db
     restart: alway
+
   cloud-db:
     container_name: cloud-db  
-    image: docker.io/library/mariadb:10
+    image: mariadb:10
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_USER: $CLOUD_DB_USER
