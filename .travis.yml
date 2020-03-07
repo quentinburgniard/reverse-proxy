@@ -27,12 +27,12 @@ script:
 deploy:	
   provider: script	
   script:
-#    - ssh -t $CI_USER@$CI_HOST "git pull ${CI_DIRECTORY} && docker ps"
-    - echo deploy
+    - ssh -t $CI1_USER@$CI1 "git pull ${CI_DIRECTORY} && docker-compose --project-directory ${CI_DIRECTORY} up -d registry"
+    - ssh -t $CI2_USER@$CI2 "git pull ${CI_DIRECTORY} && docker-compose --project-directory ${CI_DIRECTORY} up -d reverse-proxy"
 
 addons:
   #ssh_known_hosts: digital-leman.com
-# hosts: digital-leman.com
+  #hosts: digital-leman.com
 
 notifications:
   slack: $SLACK_TOKEN
