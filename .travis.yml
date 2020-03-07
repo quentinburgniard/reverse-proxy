@@ -15,6 +15,10 @@ env: |
   PORTFOLIO_VERSION=2.0
   REVERSE_PROXY_VERSION=1.1
 
+before_install:
+  - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+  - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY
+
 install: docker-compose up -d reverse-proxy
 
 script:
@@ -31,5 +35,4 @@ addons:
 # hosts: digital-leman.com
 
 notifications:
-  slack:
-    secure: "HGLqnhgU91mcOH1MvsaJcwNsrUFQY+f6YPJj37hyTLPPNryBoFK2AS8/cIkxp2gvycHvaJSY56Qd4vmxtLYHKkjJe6cOMs/XT9Yh3BscQhsnP7UtGPn/QYUxDZF8IybFHViLvxg2nnq2ZcP8jcEgdnuG0ezMB617wheup7y6GskMhCiN/TyuoZJ+KoDoVQnI5jVlHuTEiLToe/ZAtdSlVJgKAYgOk3WdcIJ08tkKplMc81zWYkewxaLA1HUb8lpG3a0/CBQ+qXc0dLLqrgj81oLAPvRvVXiAwz9jg/gKC3EltMAL5f+oGqz3iQucYJTkve2Y0xEwtL/FsPVPk3rBXrkj8gBu32MSAU7gN1/b49ORBYVErmCJ6oKjpiFc24DSSxZnfK703/mNHPtHyDgwQ5hfLTF3vOj0lhnzGYgB90jQS9JVX155cYu3TDXQldcGU/OmrldCG/0djLbWaTK7GCZdrTz4xM1V3PT7UUEFmmI0DmRYHwxHpoSuouyAFG62H2CO/JZ0zEK9UpSlAeD+PBGBbaZGlTJY8b/Y+NmvzKhY84gvSzj0rTfBcdSslOusHaHlu+CfIYbd/Zf1YWW2TxGDFREd38t4qYHX5e8gJTLVP50v63sYy2w7IDXxpnqv08iP/yIVNl58XiFyr2SkB1ZUJtfDoFqkAWSkbnpMfWU="
+  slack: $SLACK_TOKEN
