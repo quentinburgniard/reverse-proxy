@@ -114,7 +114,7 @@ services:
     entrypoint: htpasswd
     command: -bcB -C 17 /registry-password/htpasswd $REGISTRY_USER $REGISTRY_PASSWORD
     volumes:
-      - registry-password:/registry-password/htpasswd
+      - registry-password:/registry-password
   
   reverse-proxy:
     container_name: reverse-proxy
