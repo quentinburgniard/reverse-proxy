@@ -1,3 +1,4 @@
 .env
 registry/htpasswd
 letsencrypt-dns-challenge/digitalocean.ini
+deploy.pem

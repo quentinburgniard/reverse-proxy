@@ -16,23 +16,30 @@ env: |
   REVERSE_PROXY_VERSION=1.1
 
 before_install:
+  - openssl aes-256-cbc -K $encrypted_6d021eaab8d3_key -iv $encrypted_6d021eaab8d3_iv -in .travis/deploy.pem.enc -out .travis/deploy.pem -d
   - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-  - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY
+  - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
 
-install: docker-compose up -d reverse-proxy
+install:
+  - docker-compose up -d registry
+  - docker-compose up -d reverse-proxy
 
 script:
   - docker ps
 
 deploy:	
-  provider: script	
+  provider: script
   script:
-    - ssh -t $CI1_USER@$CI1 "git pull ${CI_DIRECTORY} && docker-compose --project-directory ${CI_DIRECTORY} up -d registry"
-    - ssh -t $CI2_USER@$CI2 "git pull ${CI_DIRECTORY} && docker-compose --project-directory ${CI_DIRECTORY} up -d reverse-proxy"
+    - eval "$(ssh-agent -s)"
+    - chmod 600 .travis/deploy.pem
+    - ssh-add .travis/deploy.pem
+    #- ssh -t $USER@$REGISTRY "git pull ${CI_DIRECTORY} && docker-compose --project-directory ${CI_DIRECTORY} up -d registry"
+    - ssh -t $USER@$REVERSE_PROXY "git pull ${CI_DIRECTORY} && docker-compose --project-directory ${CI_DIRECTORY} up -d reverse-proxy"
 
-#addons:
-  #ssh_known_hosts: digital-leman.com
-  #hosts: digital-leman.com
+addons:
+  ssh_known_hosts:
+    - $REGISTRY
+    - $REVERSE_PROXY
 
 notifications:
   slack: $SLACK_TOKEN
