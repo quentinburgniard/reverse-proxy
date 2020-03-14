@@ -148,7 +148,7 @@ services:
     image: certbot/dns-digitalocean
     command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com --cert-name d -d ${MAIN_DOMAIN}${DOMAINS}
     volumes:
-      - ssl-certs:/etc/letsencrypt/live
+      - ssl-certs:/etc/letsencrypt/live/d
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
 
 volumes:
