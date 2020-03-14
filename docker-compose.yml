@@ -149,7 +149,7 @@ services:
     command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 60 -n --agree-tos -m quentinburgniard@gmail.com -d ${MAIN_DOMAIN}${DOMAINS}
     volumes:
       - ssl-certs:/etc/letsencrypt/live/${MAIN_DOMAIN}
-      - ./ssl-certs/digitalocean.ini:/etc/digitalocean.ini:ro
+      - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
 
 volumes:
   api-data:
