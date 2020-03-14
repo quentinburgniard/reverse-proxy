@@ -9,8 +9,8 @@ services:
       DATABASE_CLIENT: mongo
       DATABASE_HOST: api-db
       DATABASE_NAME: api
-      DATABASE_USERNAME: $MONGO_ROOT_USER
-      DATABASE_PASSWORD: $MONGO_ROOT_PASSWORD
+      DATABASE_USERNAME: $API_DB_USER
+      DATABASE_PASSWORD: $API_DB_PASSWORD
     volumes:
       - api:/usr/src/api/strapi
     depends_on:
@@ -21,8 +21,8 @@ services:
     container_name: api-db
     image: mongo:4
     environment:
-      MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
-      MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PASSWORD
+      MONGO_INITDB_ROOT_USERNAME: $API_DB_USER
+      MONGO_INITDB_ROOT_PASSWORD: $API_DB_PASSWORD
       MONGO_INITDB_DATABASE: api
     volumes:
       - api-db:/data/db
