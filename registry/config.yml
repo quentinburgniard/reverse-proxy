@@ -3,7 +3,7 @@ http:
   addr: 0.0.0.0:443
   tls:
     certificate: /ssl-certs/d/fullchain.pem
-    key: /ssl-certs/privkey.pem
+    key: /ssl-certs/d/privkey.pem
   http2: true
 storage:
   s3:
