@@ -2,7 +2,7 @@ version: 0.1
 http:
   addr: 0.0.0.0:443
   tls:
-    certificate: /ssl-certs/fullchain.pem
+    certificate: /ssl-certs/d/fullchain.pem
     key: /ssl-certs/privkey.pem
   http2: true
 storage:
