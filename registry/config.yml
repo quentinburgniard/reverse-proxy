@@ -4,7 +4,6 @@ http:
   tls:
     certificate: /ssl-certs/d/fullchain.pem
     key: /ssl-certs/d/privkey.pem
-  http2: true
 storage:
   s3:
     region: eu-central-1
