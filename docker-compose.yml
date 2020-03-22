@@ -139,16 +139,16 @@ services:
   ssl-certs-dev:
     container_name: ssl-certs-dev
     image: frapsoft/openssl
-    command: req -keyout /ssl-certs/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
+    command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
     volumes:
       - ssl-certs:/ssl-certs
 
   ssl-certs-prod:
     container_name: ssl-certs-prod
     image: certbot/dns-digitalocean
-    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 1200 -n --agree-tos -m quentinburgniard@gmail.com --cert-name d -d $DOMAINS
+    command: certonly --test-cert --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 1200 -n --agree-tos -m quentinburgniard@gmail.com --cert-name d -d $DOMAINS
     volumes:
-      - ssl-certs:/etc/letsencrypt/live
+      - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
 
 volumes:

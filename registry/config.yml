@@ -2,8 +2,8 @@ version: 0.1
 http:
   addr: 0.0.0.0:443
   tls:
-    certificate: /ssl-certs/d/fullchain.pem
-    key: /ssl-certs/d/privkey.pem
+    certificate: /ssl-certs/live/d/fullchain.pem
+    key: /ssl-certs/live/d/privkey.pem
 storage:
   s3:
     region: eu-central-1
