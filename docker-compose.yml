@@ -146,7 +146,7 @@ services:
   ssl-certs-prod:
     container_name: ssl-certs-prod
     image: certbot/dns-digitalocean
-    command: certonly --test-cert --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 1200 -n --agree-tos -m quentinburgniard@gmail.com --cert-name d -d $DOMAINS
+    command: certonly --dns-digitalocean --dns-digitalocean-credentials /digitalocean.ini --dns-digitalocean-propagation-seconds 1200 -n --agree-tos -m quentinburgniard@gmail.com --cert-name d -d $DOMAINS
     volumes:
       - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
