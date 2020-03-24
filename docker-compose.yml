@@ -121,7 +121,7 @@ services:
     image: ${REGISTRY}/reverse-proxy:${REVERSE_PROXY_VERSION}
     environment:
       API_KEY: $AMPLIFY_API_SECRETKEY
-      AMPLIFY_IMAGENAME: $MAIN_DOMAIN
+      AMPLIFY_IMAGENAME: ${MAIN_DOMAIN}-${ENV}
     volumes:
       - ssl-certs:/ssl-certs:ro
       - ./reverse-proxy:/etc/nginx:ro
