@@ -57,38 +57,37 @@ services:
     
   cv:
     container_name: cv
-    image: ${REGISTRY}/cv:${CV_VERSION}
+    image: ${REGISTRY}/cv:1.0
     restart: always
 
   discover-me:
     container_name: discover-me
-    image: ${REGISTRY}/discover-me:${DISCOVER_ME_VERSION}
+    image: ${REGISTRY}/discover-me:1.0
     depends_on:
-      - discover-me-api
+      - discover-me-data
     restart: always
 
-  discover-me-api:
-    container_name: discover-me-api
-    image: ${REGISTRY}/discover-me-api:${DISCOVER_ME_API_VERSION}
+  discover-me-data:
+    container_name: discover-me-data
+    image: ${REGISTRY}/discover-me-api:1.0
     restart: always
     
   lavoieducoeur:
     container_name: lavoieducoeur
-    image: ${REGISTRY}/la-voie-du-coeur:${LAVOIEDUCOEUR_VERSION}
+    image: ${REGISTRY}/la-voie-du-coeur:1.0
     depends_on:
       - api
     restart: always
 
   portfolio:
     container_name: portfolio
-    image: ${REGISTRY}/portfolio:${PORTFOLIO_VERSION}
+    image: ${REGISTRY}/portfolio:2.0
     restart: always
 
   registry:
     container_name: registry
     image: registry:2
     environment:
-      REGISTRY_STORAGE_S3_BUCKET: $REGISTRY
       REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
       REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
     volumes:
@@ -118,10 +117,10 @@ services:
   
   reverse-proxy:
     container_name: reverse-proxy
-    image: ${REGISTRY}/reverse-proxy:${REVERSE_PROXY_VERSION}
+    image: ${REGISTRY}/reverse-proxy:1.1
     environment:
       API_KEY: $AMPLIFY_API_SECRETKEY
-      AMPLIFY_IMAGENAME: ${MAIN_DOMAIN}-${ENV}
+      AMPLIFY_IMAGENAME: $AMPLIFY
     volumes:
       - ssl-certs:/ssl-certs:ro
       - ./reverse-proxy:/etc/nginx:ro

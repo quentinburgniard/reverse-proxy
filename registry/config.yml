@@ -1,11 +1,12 @@
 version: 0.1
 http:
-  addr: 0.0.0.0:443
+  addr: localhost:443
   tls:
     certificate: /ssl-certs/live/d/fullchain.pem
     key: /ssl-certs/live/d/privkey.pem
 storage:
   s3:
+    bucket: registry.quentinburgniard.com
     region: eu-central-1
 redis:
   addr: registry-cache:6379

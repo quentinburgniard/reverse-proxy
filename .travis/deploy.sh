@@ -3,6 +3,5 @@
 eval "$(ssh-agent -s)"
 chmod 600 .travis/deploy
 ssh-add .travis/deploy
-ls .travis/
-#ssh -t $USER@$REGISTRY "git pull ${DIRECTORY} && docker-compose --project-directory ${DIRECTORY} up -d registry"
-ssh -t $USER@$MAIN_DOMAIN "git pull ${DIRECTORY} && docker-compose --project-directory ${DIRECTORY} up -d reverse-proxy"
+ssh -t $USER@registry.quentinburgniard.com "git pull ${DIRECTORY} && docker-compose --project-directory ${DIRECTORY} up -d registry"
+ssh -t $USER@digital-leman.com "git pull ${DIRECTORY} && docker-compose --project-directory ${DIRECTORY} up -d reverse-proxy"
