@@ -7,7 +7,7 @@ services:
     environment:
       APP_NAME: api
       DATABASE_CLIENT: mongo
-      DATABASE_HOST: api-db
+      DATABASE_HOST: api-data
       DATABASE_NAME: api
       DATABASE_USERNAME: $API_DATA_USER
       DATABASE_PASSWORD: $API_DATA_PASSWORD
@@ -57,69 +57,37 @@ services:
     
   cv:
     container_name: cv
-    image: ${REGISTRY}/cv:1.0
+    image: quentinburgniard/cv:1
     restart: always
 
   discover-me:
     container_name: discover-me
-    image: ${REGISTRY}/discover-me:1.0
+    image: quentinburgniard/discover-me:1
     depends_on:
       - discover-me-data
     restart: always
 
   discover-me-data:
     container_name: discover-me-data
-    image: ${REGISTRY}/discover-me-api:1.0
+    image: quentinburgniard/discover-me-data:1
     restart: always
     
   lavoieducoeur:
     container_name: lavoieducoeur
-    image: ${REGISTRY}/la-voie-du-coeur:1.0
+    image: quentinburgniard/lavoieducoeur:1
     depends_on:
       - api
     restart: always
 
   portfolio:
     container_name: portfolio
-    image: ${REGISTRY}/portfolio:2.0
+    image: quentinburgniard/portfolio:2
     restart: always
-
-  registry:
-    container_name: registry
-    image: registry:2
-    environment:
-      REGISTRY_STORAGE_S3_ACCESSKEY: $AWS_API_ACCESSKEY
-      REGISTRY_STORAGE_S3_SECRETKEY: $AWS_API_SECRETKEY
-    volumes:
-      - ./registry/config.yml:/etc/docker/registry/config.yml
-      - registry-password:/registry-password:ro
-      - ssl-certs:/ssl-certs:ro
-    ports:
-      - 443:443
-    depends_on:
-      - registry-cache
-      - ssl-certs-${ENV}
-      - registry-password
-    restart: always
-  
-  registry-cache:
-    container_name: registry-cache
-    image: redis:5
-    restart: always
-      
-  registry-password:
-    container_name: registry-password
-    image: registry:2
-    entrypoint: htpasswd
-    command: -bcB -C 17 /registry-password/htpasswd $REGISTRY_USER $REGISTRY_PASSWORD
-    volumes:
-      - registry-password:/registry-password
   
   reverse-proxy:
     container_name: reverse-proxy
-    image: ${REGISTRY}/reverse-proxy:1.1
+    image: quentinburgniard/reverse-proxy:1
     environment:
-      API_KEY: $AMPLIFY_API_SECRETKEY
       AMPLIFY_IMAGENAME: $AMPLIFY
     volumes:
       - ssl-certs:/ssl-certs:ro
@@ -132,12 +100,13 @@ services:
       - cloud
       - cv
       - discover-me
+      - lavoieducoeur
       - portfolio
       - ssl-certs-${ENV}
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
-    image: frapsoft/openssl
+    image: quentinburgniard/ssl-certs-dev:1
     command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
     volumes:
       - ssl-certs:/ssl-certs
