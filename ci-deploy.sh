@@ -3,4 +3,4 @@
 eval "$(ssh-agent -s)"
 chmod 600 .travis/id_rsa
 ssh-add .travis/id_rsa
-ssh -t ${USER}@digital-leman.com "git pull ${DIRECTORY} && docker-compose --project-directory ${DIRECTORY} up -d reverse-proxy"
+ssh -t ${USER}@digital-leman.com "cd $DIRECTORY && git pull && docker-compose up -d reverse-proxy"
