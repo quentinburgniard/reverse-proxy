@@ -106,7 +106,7 @@ services:
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
-    image: quentinburgniard/ssl-certs-dev:1
+    image: quentinburgniard/ssl-certs-dev:1.1.0
     command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
     volumes:
       - ssl-certs:/ssl-certs
