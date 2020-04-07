@@ -1,2 +1,2 @@
 #!/bin/sh
-docker-compose -f docker-compose.yml up --force-recreate ssl-certificate-prod
+docker-compose -f docker-compose.yml up --force-recreate ssl-certs-prod
