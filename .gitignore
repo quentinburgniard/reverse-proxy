@@ -1,3 +1,3 @@
 .env
-.travis/deploy
+id_rsa
 ssl-certs/digitalocean.ini
