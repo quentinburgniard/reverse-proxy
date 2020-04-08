@@ -30,7 +30,7 @@ services:
 
   cloud:
     container_name: cloud
-    image: nextcloud:18
+    image: quentinburgniard/cloud:0.0.1
     environment:
       NEXTCLOUD_ADMIN_USER: $CLOUD_USER
       NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
