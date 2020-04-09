@@ -30,15 +30,16 @@ services:
 
   cloud:
     container_name: cloud
-    image: quentinburgniard/cloud:0.0.1
+    image: quentinburgniard/cloud:0.0.2
     environment:
       NEXTCLOUD_ADMIN_USER: $CLOUD_USER
       NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
-      NEXTCLOUD_TRUSTED_DOMAINS: $CLOUD
+      NEXTCLOUD_TRUSTED_DOMAINS: cloud
       MYSQL_HOST: cloud-data
       MYSQL_DATABASE: cloud
       MYSQL_USER: $CLOUD_DATA_USER
       MYSQL_PASSWORD: $CLOUD_DATA_PASSWORD
+      #NC_OVERWRITEHOST: cloud.quentinburgniard.fr
     depends_on:
       - cloud-data
     restart: always
