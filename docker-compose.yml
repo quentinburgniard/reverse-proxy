@@ -3,12 +3,10 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: strapi/strapi
+    image: quentinburgniard/api:1.0.5
     environment:
-      APP_NAME: api
-      DATABASE_CLIENT: mongo
+      PROXY_HOST: $API
       DATABASE_HOST: api-data
-      DATABASE_NAME: api
       DATABASE_USERNAME: $API_DATA_USER
       DATABASE_PASSWORD: $API_DATA_PASSWORD
     volumes:
@@ -30,7 +28,7 @@ services:
 
   cloud:
     container_name: cloud
-    image: quentinburgniard/cloud:0.0.5
+    image: quentinburgniard/cloud:0.0.7
     environment:
       NEXTCLOUD_ADMIN_USER: $CLOUD_USER
       NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
