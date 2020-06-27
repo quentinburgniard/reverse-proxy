@@ -62,7 +62,7 @@ services:
     
   cv:
     container_name: cv
-    image: quentinburgniard/cv:1
+    image: quentinburgniard/cv:1.1.8
     restart: always
 
   discover-me:
