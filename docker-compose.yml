@@ -28,7 +28,7 @@ services:
 
   cloud:
     container_name: cloud
-    image: quentinburgniard/cloud:0.0.7
+    image: quentinburgniard/cloud:0.0.8
     environment:
       NEXTCLOUD_ADMIN_USER: $CLOUD_USER
       NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
