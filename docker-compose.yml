@@ -28,7 +28,7 @@ services:
 
   cloud:
     container_name: cloud
-    image: quentinburgniard/cloud:0.0.9
+    image: quentinburgniard/cloud:0.0.7
     environment:
       NEXTCLOUD_ADMIN_USER: $CLOUD_USER
       NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
@@ -38,6 +38,8 @@ services:
       MYSQL_USER: $CLOUD_DATA_USER
       MYSQL_PASSWORD: $CLOUD_DATA_PASSWORD
       REDIS_HOST: cloud-cache
+    volumes:
+      - cloud:/var/www/html
     depends_on:
       - cloud-data
       - cloud-cache
