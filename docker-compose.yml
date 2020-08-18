@@ -127,6 +127,7 @@ services:
 
 volumes:
   api-data:
+  cloud:
   cloud-data:
   registry-password:
   ssl-certs:
