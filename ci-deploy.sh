@@ -1,4 +1,4 @@
-#!/bin/bash	
+#!/bin/bash
 # https://docs.travis-ci.com/user/deployment/custom/#git
 eval "$(ssh-agent -s)"
 chmod 600 .travis/id_rsa

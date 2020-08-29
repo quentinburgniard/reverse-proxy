@@ -8,7 +8,7 @@ before_install:
   -in .travis/id_rsa.enc -out .travis/id_rsa -d
 - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
 install: docker-compose up -d reverse-proxy
-script: docker ps
+script: bash ci-test.sh
 deploy:
   provider: script
   script: bash ci-deploy.sh

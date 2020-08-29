@@ -26,24 +26,24 @@ services:
       - api-data:/data/db
     restart: always
 
-  cloud:
-    container_name: cloud
-    image: quentinburgniard/cloud:0.0.7
-    environment:
-      NEXTCLOUD_ADMIN_USER: $CLOUD_USER
-      NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
-      NEXTCLOUD_TRUSTED_DOMAINS: cloud
-      MYSQL_HOST: cloud-data
-      MYSQL_DATABASE: cloud
-      MYSQL_USER: $CLOUD_DATA_USER
-      MYSQL_PASSWORD: $CLOUD_DATA_PASSWORD
-      REDIS_HOST: cloud-cache
-    volumes:
-      - cloud:/var/www/html
-    depends_on:
-      - cloud-data
-      - cloud-cache
-    restart: always
+  # cloud:
+  #   container_name: cloud
+  #   image: quentinburgniard/cloud:0.0.9
+  #   environment:
+  #     NEXTCLOUD_ADMIN_USER: $CLOUD_USER
+  #     NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
+  #     NEXTCLOUD_TRUSTED_DOMAINS: cloud
+  #     MYSQL_HOST: cloud-data
+  #     MYSQL_DATABASE: cloud
+  #     MYSQL_USER: $CLOUD_DATA_USER
+  #     MYSQL_PASSWORD: $CLOUD_DATA_PASSWORD
+  #     REDIS_HOST: cloud-cache
+  #   volumes:
+  #     - cloud:/var/www/html
+  #   depends_on:
+  #     - cloud-data
+  #     - cloud-cache
+  #   restart: always
 
   cloud-data:
     container_name: cloud-data
@@ -64,7 +64,7 @@ services:
     
   cv:
     container_name: cv
-    image: quentinburgniard/cv:1.1.8
+    image: quentinburgniard/cv:2.0.0
     restart: always
 
   discover-me:
@@ -104,7 +104,7 @@ services:
       - 443:443
     depends_on:
       - api
-      - cloud
+      # - cloud
       - cv
       - discover-me
       - lavoieducoeur
