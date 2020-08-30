@@ -1,3 +1,4 @@
 .env
 id_rsa
 ssl-certs/digitalocean.ini
+.htpasswd

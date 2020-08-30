@@ -26,24 +26,24 @@ services:
       - api-data:/data/db
     restart: always
 
-  # cloud:
-  #   container_name: cloud
-  #   image: quentinburgniard/cloud:0.0.9
-  #   environment:
-  #     NEXTCLOUD_ADMIN_USER: $CLOUD_USER
-  #     NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
-  #     NEXTCLOUD_TRUSTED_DOMAINS: cloud
-  #     MYSQL_HOST: cloud-data
-  #     MYSQL_DATABASE: cloud
-  #     MYSQL_USER: $CLOUD_DATA_USER
-  #     MYSQL_PASSWORD: $CLOUD_DATA_PASSWORD
-  #     REDIS_HOST: cloud-cache
-  #   volumes:
-  #     - cloud:/var/www/html
-  #   depends_on:
-  #     - cloud-data
-  #     - cloud-cache
-  #   restart: always
+  cloud:
+    container_name: cloud
+    image: quentinburgniard/cloud:0.0.9
+    environment:
+      NEXTCLOUD_ADMIN_USER: $CLOUD_USER
+      NEXTCLOUD_ADMIN_PASSWORD: $CLOUD_PASSWORD
+      NEXTCLOUD_TRUSTED_DOMAINS: cloud
+      MYSQL_HOST: cloud-data
+      MYSQL_DATABASE: cloud
+      MYSQL_USER: $CLOUD_DATA_USER
+      MYSQL_PASSWORD: $CLOUD_DATA_PASSWORD
+      REDIS_HOST: cloud-cache
+    volumes:
+      - cloud:/var/www/html
+    depends_on:
+      - cloud-data
+      - cloud-cache
+    restart: always
 
   cloud-data:
     container_name: cloud-data
@@ -104,11 +104,12 @@ services:
       - 443:443
     depends_on:
       - api
-      # - cloud
+      - cloud
       - cv
       - discover-me
       - lavoieducoeur
       - portfolio
+      - valerie
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
@@ -124,6 +125,11 @@ services:
     volumes:
       - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
+
+  valerie:
+    container_name: valerie
+    image: quentinburgniard/valerie:0.0.1
+    restart: always
 
 volumes:
   api-data:
