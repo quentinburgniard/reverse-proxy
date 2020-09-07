@@ -126,9 +126,9 @@ services:
       - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
 
-  valerie:
-    container_name: valerie
-    image: quentinburgniard/valerie:0.0.1
+  hestia:
+    container_name: hestia
+    image: quentinburgniard/hestia:0.0.2
     restart: always
 
 volumes:

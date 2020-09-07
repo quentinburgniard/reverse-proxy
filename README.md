@@ -28,3 +28,5 @@ https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basi
 https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/#combining-basic-authentication-with-access-restriction-by-ip-address
 
 https://github.com/nginxinc/docker-nginx-amplify/blob/master/README.md#2-how-to-build-and-run-an-amplify-enabled-nginx-image
+
+Error page made by https://github.com/phawk/simple-error-pages

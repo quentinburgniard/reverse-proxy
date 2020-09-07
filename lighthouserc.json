@@ -1,0 +1,19 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "https://cv.quentinburgniard.fr",
+        "https://hestia.quentinburgniard.fr",
+        "https://quentinburgniard.fr"
+        
+      ],
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

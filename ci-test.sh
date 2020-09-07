@@ -1,2 +1,3 @@
 #!/bin/bash
-docker ps
+lhci autorun
+#docker inspect --format='{{json .Config}}' $INSTANCE_ID
