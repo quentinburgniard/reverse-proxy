@@ -107,9 +107,9 @@ services:
       - cloud
       - cv
       - discover-me
+      - hestia
       - lavoieducoeur
       - portfolio
-      - valerie
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
