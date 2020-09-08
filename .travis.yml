@@ -1,5 +1,6 @@
 branches: master
 language: node_js
+node_js: v12
 services: docker
 addons:
   chrome: stable
