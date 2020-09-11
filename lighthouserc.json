@@ -2,13 +2,9 @@
   "ci": {
     "collect": {
       "url": [
-        "https://cv.quentinburgniard.fr",
-        "https://hestia.quentinburgniard.fr",
-        "https://quentinburgniard.fr"
-        
-      ],
-      "puppeteerScript": [
-
+        "https://cv.digitalleman.com",
+        "https://digitalleman.com",
+        "https://hestia-ge.ch"
       ]
     },
     "assert": {

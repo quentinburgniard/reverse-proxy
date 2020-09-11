@@ -4,11 +4,11 @@ node_js: v12
 services: docker
 addons:
   chrome: stable
+  ssh_known_hosts: digitalleman.com
 before_install:
 - openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv
   -in .travis/.env.enc -out .env -d
-- openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
-  -in .travis/id_rsa.enc -out .travis/id_rsa -d
+- openssl aes-256-cbc -K $encrypted_4dbbf08dff32_key -iv $encrypted_4dbbf08dff32_iv -in .travis/id_rsa.enc -out .travis/id_rsa -d
 - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
 - npm install -g @lhci/cli@0.5.x
 install: docker-compose up -d reverse-proxy
@@ -17,8 +17,8 @@ deploy:
   provider: script
   script: bash ci-deploy.sh
   skip_cleanup: true
-addons:
-  ssh_known_hosts: digitalleman.com
+after_deploy:
+  - lhci autorun
 notifications:
   slack:
     secure: fzNSzq5BBNbRhK3cNhv8gK7uQUHOVkb64rqSoBA4Mh5Nn+r2sCOgxXRDQF7w6KJ+s5b15yGJRTHBQzm8HytfRL8x/gzvcwifUD1d68gsTyEX2HIod+I2qlGTuw8B8+95Dan/8CqqaCSCWFYjYu4/nEUOb2NFWuLePOqTLzh+I86Zxc9ca6oxvgoYFleAORP/boI4S6xgmQIIpGuGaRB/vBiOT6jcHvCjIozJ4aFRIqPtD2PG7xlf+bqiGBpFp2VJgHgXqeFLQhXH5g5PJAl/sz2k4gjB7iXLGbNVInSeEwQPo/QHKQ3Grp/E1iF/rWajxTROIXOb9YY7Zu2HCpkBkvPGTbTMEcq/2eD9DfLPcp1Xe6KnMKPD+9r143dc9eaLRCqHJmmoNM+Hbz9ZA6vrBoDJqd/gGASrFsaXTQ6HnlCH8jyQ4HOi06FQ7g3RmJJXEpgWGp4BaX9B3e6sQI7PAR4ZGzQ1TldTG0vVTLe9JNw4F9A/K/ZvU2biuBi6VvCaXWZb6QCAK3oAPOw49ThfzOCfh5NoBFxlxu2HyL9nIMrzwG7qL0nhcvwFnssE0lg47yXiTFCt6R1x6nir5T4UGhmcXaCks7mryyf2yvI4q7NbGWi6Lw/xtva6gdPTIb6qUfX/p4RYfyBhkz7a6jOysQEa1uFZSLLifYKNXBP3VwU=
