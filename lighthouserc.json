@@ -2,9 +2,7 @@
   "ci": {
     "collect": {
       "url": [
-        "https://cv.digitalleman.com",
-        "https://digitalleman.com",
-        "https://hestia-ge.ch"
+        "https://api.digitalleman.com"
       ]
     },
     "assert": {

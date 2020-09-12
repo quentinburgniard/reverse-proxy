@@ -79,6 +79,11 @@ services:
     image: quentinburgniard/discover-me-data:1
     restart: always
     
+  hestia:
+    container_name: hestia
+    image: quentinburgniard/hestia:0.0.2
+    restart: always
+    
   lavoieducoeur:
     container_name: lavoieducoeur
     image: quentinburgniard/lavoieducoeur:1
@@ -125,11 +130,6 @@ services:
     volumes:
       - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
-
-  hestia:
-    container_name: hestia
-    image: quentinburgniard/hestia:0.0.2
-    restart: always
 
 volumes:
   api-data:
