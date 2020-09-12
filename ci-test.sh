@@ -18,6 +18,7 @@ sleep 1m
 
 for service in "${services[@]}"
 do
+  curl -k -I https://$service
   status=$(curl -k -I -so /dev/null -w '%{response_code}' https://$service)
   if [ $status != "200" ]; then
     echo "HTTP Status Failed"
