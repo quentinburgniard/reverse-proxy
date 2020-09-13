@@ -83,6 +83,11 @@ services:
     container_name: hestia
     image: quentinburgniard/hestia:0.0.3
     restart: always
+
+  invoice:
+    container_name: invoice
+    image: quentinburgniard/invoice:0.0.1
+    restart: always
     
   lavoieducoeur:
     container_name: lavoieducoeur
@@ -113,6 +118,7 @@ services:
       - cv
       - discover-me
       - hestia
+      - invoice
       - lavoieducoeur
       - portfolio
   
