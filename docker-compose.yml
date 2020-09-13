@@ -86,7 +86,7 @@ services:
 
   invoice-generator:
     container_name: invoice-generator
-    image: quentinburgniard/invoice-generator:0.0.3
+    image: quentinburgniard/invoice-generator:0.0.4
     restart: always
     
   lavoieducoeur:
@@ -98,7 +98,9 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2
+    image: quentinburgniard/portfolio:2.0.1
+    environment:
+      VERSION: 2.0.1
     restart: always
   
   reverse-proxy:
