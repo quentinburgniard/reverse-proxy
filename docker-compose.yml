@@ -84,9 +84,9 @@ services:
     image: quentinburgniard/hestia:0.0.3
     restart: always
 
-  invoice:
-    container_name: invoice
-    image: quentinburgniard/invoice:0.0.1
+  invoice-generator:
+    container_name: invoice-generator
+    image: quentinburgniard/invoice-generator:0.0.3
     restart: always
     
   lavoieducoeur:
@@ -118,7 +118,7 @@ services:
       - cv
       - discover-me
       - hestia
-      - invoice
+      - invoice-generator
       - lavoieducoeur
       - portfolio
   

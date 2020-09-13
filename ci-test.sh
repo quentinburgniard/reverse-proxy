@@ -1,6 +1,6 @@
 #!/bin/bash
 # Docker Status
-services=("api" "cloud" "cv" "discover-me" "hestia" "lavoieducoeur" "portfolio" "reverse-proxy")
+services=("api" "cloud" "cv" "discover-me" "hestia" "invoice-generator" "lavoieducoeur" "portfolio" "reverse-proxy")
 
 for service in "${services[@]}"
 do
