@@ -86,7 +86,7 @@ services:
 
   invoice-generator:
     container_name: invoice-generator
-    image: quentinburgniard/invoice-generator:0.0.4
+    image: quentinburgniard/invoice-generator:1.0.0
     restart: always
     
   lavoieducoeur:
