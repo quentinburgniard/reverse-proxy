@@ -101,6 +101,8 @@ services:
     image: quentinburgniard/portfolio:2.0.1
     environment:
       VERSION: 2.0.1
+    depends_on:
+      - search
     restart: always
   
   reverse-proxy:
@@ -123,6 +125,14 @@ services:
       - invoice-generator
       - lavoieducoeur
       - portfolio
+    restart: always
+
+  search:
+    container_name: search
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    volumes:
+      -  ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    restart: always
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
