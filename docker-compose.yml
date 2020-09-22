@@ -98,9 +98,9 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.0.2
+    image: quentinburgniard/portfolio:2.0.3
     environment:
-      VERSION: 2.0.2
+      VERSION: 2.0.3
     depends_on:
       - search
     restart: always
