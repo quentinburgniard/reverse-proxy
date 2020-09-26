@@ -1,4 +1,4 @@
-# Digital Léman [![Build Status](https://travis-ci.org/quentinburgniard/digitalleman.svg?branch=master)](https://travis-ci.org/quentinburgniard/digitalleman)
+# Digital Léman [![Build Status](https://api.travis-ci.com/quentinburgniard/reverse-proxy.svg?branch=master)](https://travis-ci.com/quentinburgniard/reverse-proxy)
 
 ## Introduction
 A big project to administrate my websites, based on containerization. The idea is to give me flexibily and agility. The heart of the system is a nginx reverse proxy. It redirect http request to docker containers.
