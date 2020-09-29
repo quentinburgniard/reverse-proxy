@@ -9,7 +9,7 @@ do
   echo $running
   if [ "$running" = "false" ]; then
     echo "Docker Status Failed $service"
-    $fail=$true
+    fail=$true
   fi
 done
 
@@ -22,7 +22,7 @@ do
   echo $status
   if [ "$status" != "200" ]; then
     echo "HTTP Status Failed $service"
-    $fail=$true
+    fail=$true
   fi
 done
 
