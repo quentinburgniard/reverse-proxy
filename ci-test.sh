@@ -13,9 +13,7 @@ do
 done
 
 # HTTP Status
-services=("cv.quentinburgniard.fr" "discover-me.quentinburgniard.fr" "lavoieducoeur.quentinburgniard.fr" "quentinburgniard.fr")
-
-#sleep 1m
+services=("api.quentinburgniard.fr" "cv.quentinburgniard.fr" "discover-me.quentinburgniard.fr" "invoice-generator.quentinburgniard.fr" "lavoieducoeur.quentinburgniard.fr" "quentinburgniard.fr")
 
 for service in "${services[@]}"
 do

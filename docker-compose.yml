@@ -3,12 +3,13 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:1.0.5
+    image: quentinburgniard/api:3.0.0
     environment:
-      PROXY_HOST: $API
-      DATABASE_HOST: api-data
-      DATABASE_USERNAME: $API_DATA_USER
-      DATABASE_PASSWORD: $API_DATA_PASSWORD
+      AWS_USER: $AWS_USER
+      AWS_PASSWORD: $AWS_PASSWORD
+      DATA_SERVICE: api-data
+      DATA_USER: $API_DATA_USER
+      DATA_PASSWORD: $API_DATA_PASSWORD
     volumes:
       - api:/usr/src/api/strapi
     depends_on:
@@ -99,8 +100,6 @@ services:
   portfolio:
     container_name: portfolio
     image: quentinburgniard/portfolio:2.0.4
-    environment:
-      VERSION: 2.0.4
     depends_on:
       - search
     restart: always
