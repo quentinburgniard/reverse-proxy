@@ -28,4 +28,5 @@ done
 
 if [ $fail ]; then
   exit 1
+  echo fail
 fi

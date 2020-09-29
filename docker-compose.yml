@@ -3,13 +3,15 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.0
+    image: quentinburgniard/api:3.0.2
     environment:
+      ADMIN_TOKEN: $API_ADMIN_TOKEN
       AWS_USER: $AWS_USER
       AWS_PASSWORD: $AWS_PASSWORD
       DATA_SERVICE: api-data
       DATA_USER: $API_DATA_USER
       DATA_PASSWORD: $API_DATA_PASSWORD
+      USER_TOKEN: $API_USER_TOKEN
     volumes:
       - api:/usr/src/api/strapi
     depends_on:
