@@ -24,10 +24,9 @@ script: bash ci-test.sh
 deploy:
   provider: script
   script: bash ci-deploy.sh
-  skip_cleanup: true
+  cleanup: false
 after_deploy:
 - lhci autorun
 notifications:
   slack:
     secure: V1gGpN4MtRxkXp/YDzac3B1veDGOHxI4RIf5r+Z21HH0Df0tyYZJm7z8d51X0QuhFH+bKGQGEi4oeeDrC9hxPElVGJ8AksXcki95Go9cT5WpAjnIeUF9OUDk7v/qpoO9E5AGUrxJBuVGgdSqFD25K0RPssF1xIu4qROrY+EK4nnOFWgTzHntHyBu4wXLs+LYxRvoMMFYhoUly8C7ukVB97y30v8Aw1HSYoq/LDa4nvMuxqD5+Z+jHq9YYrlt0EVUXTkFvr5b6JDzGNhDKntVImvQokhpH6Cgs64hY5Vae2qvfb/tqPZhCc03Qa3lBO+dQISLd+yh7+2ItvZhbJOxjNGM4m0UURVCnRrfZ/1WvA/6yQN0D42JC/Qz97vJz19tnqYCToxPuh9xQjb0tO2xGoZYCyutvJ85dtB/uQ9Xslob7WOtD/8AEIfZ7E7sOkwgCZeWrirG6VpXZDXX9z7XIdHlW5jIndbtEdfZ9cpTA6fjVDVulEdJD+5XWrbmD7dFT0T96jNkatZWVfCpUaLlDd+xGdGnrmnDwl3ucf8Bu1w8WZmUQ3WdOMCT9WpEj/4IIbGs8T2oCBPQUjuVh1KosYOYFu9YQo7jp/lZdwOswDjo025lg1IHs8MXcYWoAEXAih0YAEuaL5fX35SdKrBeiRblMi6dpcwsl/ZmHboI/TU=
-    on_start: always
