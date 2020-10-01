@@ -25,6 +25,7 @@ deploy:
   provider: script
   script: bash ci-deploy.sh
   cleanup: false
+  skip_cleanup: true
 after_deploy:
 - lhci autorun
 notifications:
