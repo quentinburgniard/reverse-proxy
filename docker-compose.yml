@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.3
+    image: quentinburgniard/api:3.0.4
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       AWS_USER: $AWS_USER
@@ -84,7 +84,7 @@ services:
     
   hestia:
     container_name: hestia
-    image: quentinburgniard/hestia:0.0.4
+    image: quentinburgniard/hestia:0.0.5
     restart: always
 
   invoice-generator:
