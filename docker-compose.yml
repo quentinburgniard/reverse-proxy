@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.4
+    image: quentinburgniard/api:3.0.5
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       AWS_USER: $AWS_USER
@@ -65,7 +65,7 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.0.8
+    image: quentinburgniard/portfolio:2.0.9
     depends_on:
       - search
     restart: always
