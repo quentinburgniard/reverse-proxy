@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.5
+    image: quentinburgniard/api:3.0.7
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       AWS_USER: $AWS_USER
@@ -28,6 +28,10 @@ services:
     volumes:
       - api-data:/data/db
     restart: always
+
+  # api-data-backup:
+  #   container_name: api-data-backup
+  #   image: quentinburgniard/api-data-backup:0.0.1
     
   cv:
     container_name: cv
@@ -48,7 +52,7 @@ services:
     
   hestia:
     container_name: hestia
-    image: quentinburgniard/hestia:0.0.5
+    image: quentinburgniard/hestia:0.0.6
     restart: always
 
   invoice-generator:
@@ -72,7 +76,7 @@ services:
   
   reverse-proxy:
     container_name: reverse-proxy
-    image: quentinburgniard/reverse-proxy:1
+    image: quentinburgniard/reverse-proxy:1.1.2
     environment:
       AMPLIFY_IMAGENAME: $AMPLIFY
     volumes:
