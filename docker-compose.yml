@@ -52,7 +52,7 @@ services:
     
   hestia:
     container_name: hestia
-    image: quentinburgniard/hestia:0.0.6
+    image: quentinburgniard/hestia:0.0.7
     restart: always
 
   invoice-generator:
