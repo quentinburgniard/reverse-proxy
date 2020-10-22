@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.7
+    image: quentinburgniard/api:3.0.8
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       AWS_USER: $AWS_USER
@@ -52,7 +52,7 @@ services:
     
   hestia:
     container_name: hestia
-    image: quentinburgniard/hestia:0.0.8
+    image: quentinburgniard/hestia:0.0.10
     restart: always
 
   invoice-generator:
@@ -69,7 +69,7 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.0.10
+    image: quentinburgniard/portfolio:2.0.11
     depends_on:
       - search
     restart: always
