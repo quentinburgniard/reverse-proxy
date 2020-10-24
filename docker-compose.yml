@@ -6,11 +6,12 @@ services:
     image: quentinburgniard/api:3.0.8
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
-      AWS_USER: $AWS_USER
-      AWS_PASSWORD: $AWS_PASSWORD
+      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
+      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
       DATA_SERVICE: api-data
       DATA_USER: $API_DATA_USER
       DATA_PASSWORD: $API_DATA_PASSWORD
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
       USER_TOKEN: $API_USER_TOKEN
     volumes:
       - api:/usr/src/api/strapi
