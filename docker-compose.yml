@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.14
+    image: quentinburgniard/api:3.0.15
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
@@ -70,7 +70,7 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.0.12
+    image: quentinburgniard/portfolio:2.0.13
     depends_on:
       - search
     restart: always
