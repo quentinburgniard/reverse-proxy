@@ -35,6 +35,7 @@ services:
   #   image: quentinburgniard/api-data-backup:0.0.1
 
   casasogra-dev:
+    container_name: casasogra-dev
     image: wordpress
     environment:
       WORDPRESS_DB_HOST: casasogra-dev-data:3306
@@ -46,6 +47,7 @@ services:
     restart: always
 
   casasogra-dev-data:
+    container_name: casasogra-dev-data
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: password
