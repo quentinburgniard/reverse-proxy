@@ -112,6 +112,7 @@ services:
       - 443:443
     depends_on:
       - api
+      - casasogra-dev
       - cv
       - discover-me
       - hestia
