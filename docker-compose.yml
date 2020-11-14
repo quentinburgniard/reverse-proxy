@@ -33,6 +33,28 @@ services:
   # api-data-backup:
   #   container_name: api-data-backup
   #   image: quentinburgniard/api-data-backup:0.0.1
+
+  casasogra:
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: casasogra-data:3306
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: casasogra
+    depends_on:
+      - casasogra-data
+    restart: always
+
+  casasogra-data:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: casasogra
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - casasogra-data:/var/lib/mysql
+    restart: always
     
   cv:
     container_name: cv
@@ -122,6 +144,7 @@ services:
 
 volumes:
   api-data:
+  casasogra-data:
   cloud:
   cloud-data:
   registry-password:
