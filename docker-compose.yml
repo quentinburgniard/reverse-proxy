@@ -36,7 +36,7 @@ services:
 
   casasogra-dev:
     container_name: casasogra-dev
-    image: wordpress
+    image: casasogra:0.0.3
     environment:
       WORDPRESS_DB_HOST: casasogra-dev-data:3306
       WORDPRESS_DB_USER: user
