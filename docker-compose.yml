@@ -119,6 +119,7 @@ services:
       - invoice-generator
       - lavoieducoeur
       - portfolio
+      - walisson
     restart: always
 
   search:
