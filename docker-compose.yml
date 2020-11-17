@@ -145,6 +145,11 @@ services:
       - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
 
+  walisson:
+    container_name: walisson
+    image: quentinburgniard/walisson:0.0.1
+    restart: always
+
 volumes:
   api-data:
   casasogra-dev-data:
