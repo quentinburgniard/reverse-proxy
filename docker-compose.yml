@@ -36,7 +36,7 @@ services:
 
   casasogra-dev:
     container_name: casasogra-dev
-    image: quentinburgniard/casasogra:0.0.4
+    image: quentinburgniard/casasogra:0.0.5
     environment:
       WORDPRESS_DB_HOST: casasogra-dev-data:3306
       WORDPRESS_DB_USER: user
