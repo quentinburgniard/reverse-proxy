@@ -36,14 +36,22 @@ services:
 
   casasogra-dev:
     container_name: casasogra-dev
-    image: quentinburgniard/casasogra:0.0.5
+    image: quentinburgniard/casasogra:0.0.6
     environment:
       WORDPRESS_DB_HOST: casasogra-dev-data:3306
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_NAME: casasogra
+    ports:
+      - 8080:80
     depends_on:
+      - casasogra-dev-bus
       - casasogra-dev-data
+    restart: always
+
+  casasogra-dev-bus:
+    container_name: casasogra-dev-bus
+    image: mendhak/http-https-echo
     restart: always
 
   casasogra-dev-data:
