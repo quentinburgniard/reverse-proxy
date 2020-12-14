@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.15
+    image: quentinburgniard/api:3.0.16
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
@@ -36,26 +36,20 @@ services:
 
   casasogra-dev:
     container_name: casasogra-dev
-    image: quentinburgniard/casasogra:0.0.6
+    image: quentinburgniard/casasogra:0.0.7
     environment:
-      WORDPRESS_DB_HOST: casasogra-dev-data:3306
-      WORDPRESS_DB_USER: user
-      WORDPRESS_DB_PASSWORD: password
-      WORDPRESS_DB_NAME: casasogra
-    ports:
-      - 8080:80
+      DB_HOST: casasogra-data-dev
+      DB_NAME: casasogra
+      DB_PASSWORD: password
+      DB_USER: user
+      DEBUG: 1
     depends_on:
-      - casasogra-dev-bus
-      - casasogra-dev-data
+      - casasogra-data-dev
+      - casasogra-mq-dev
     restart: always
 
-  casasogra-dev-bus:
-    container_name: casasogra-dev-bus
-    image: mendhak/http-https-echo
-    restart: always
-
-  casasogra-dev-data:
-    container_name: casasogra-dev-data
+  casasogra-data-dev:
+    container_name: casasogra-data-dev
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -63,7 +57,16 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
-      - casasogra-dev-data:/var/lib/mysql
+      - casasogra-data-dev:/var/lib/mysql
+    restart: always
+
+  casasogra-mq-dev:
+    container_name: casasogra-mq-dev
+    image: quentinburgniard/casasogra-mq:0.0.1
+    environment:
+      GSMTASKS_TOKEN: 9ededb0184fd8ed652381608dbc2c738be121790
+      VENDUS_POS: test
+      VENDUS_TOKEN: test
     restart: always
     
   cv:
@@ -161,10 +164,7 @@ services:
 
 volumes:
   api-data:
-  casasogra-dev-data:
-  cloud:
-  cloud-data:
-  registry-password:
+  casasogra-data-dev:
   search:
   ssl-certs:
   api:
