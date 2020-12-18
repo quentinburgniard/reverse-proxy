@@ -36,12 +36,12 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.7
+    image: quentinburgniard/casasogra:0.0.8
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
-      DB_PASSWORD: password
-      DB_USER: user
+      DB_PASSWORD: CASASOGRA_DATA_PASSWORD
+      DB_USER: CASASOGRA_DATA_USER
       DEBUG: 1
     depends_on:
       - casasogra-data
@@ -52,10 +52,10 @@ services:
     container_name: casasogra-data
     image: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: CASASOGRA_DATA_PASSWORD
       MYSQL_DATABASE: casasogra
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: CASASOGRA_DATA_USER
+      MYSQL_PASSWORD: CASASOGRA_DATA_PASSWORD
     volumes:
       - casasogra-data:/var/lib/mysql
     restart: always
