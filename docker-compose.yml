@@ -36,13 +36,15 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.12
+    image: quentinburgniard/casasogra:0.0.13
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
       DB_PASSWORD: $CASASOGRA_DATA_PASSWORD
       DB_USER: $CASASOGRA_DATA_USER
       DEBUG: 1
+      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
+      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
     depends_on:
       - casasogra-data
       - casasogra-mq
