@@ -36,13 +36,12 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.16
+    image: quentinburgniard/casasogra:0.0.18
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
       DB_PASSWORD: $CASASOGRA_DATA_PASSWORD
       DB_USER: $CASASOGRA_DATA_USER
-      DEBUG: 1
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
     depends_on:
@@ -64,11 +63,13 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.0.1
+    image: quentinburgniard/casasogra-mq:0.0.2
     environment:
       GSMTASKS_TOKEN: $GSMTASKS_TOKEN
-      VENDUS_POS: test
-      VENDUS_TOKEN: test
+      VENDUS_POS: $VENDUS_POS
+      VENDUS_TOKEN: $VENDUS_TOKEN
+      WOOCOMMERCE_USER: $WOOCOMMERCE_USER
+      WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
     restart: always
     
   cv:
@@ -105,9 +106,14 @@ services:
       - api
     restart: always
 
+  mesquinho-generator:
+    container_name: mesquinho-generator
+    image: quentinburgniard/mesquinho-generator:0.0.1
+    restart: always
+
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.0.13
+    image: quentinburgniard/portfolio:2.0.15
     depends_on:
       - search
     restart: always
@@ -131,6 +137,7 @@ services:
       - hestia
       - invoice-generator
       - lavoieducoeur
+      - mesquinho-generator
       - portfolio
       - walisson
     restart: always
