@@ -108,7 +108,7 @@ services:
 
   mesquinho-generator:
     container_name: mesquinho-generator
-    image: quentinburgniard/mesquinho-generator:0.0.1
+    image: quentinburgniard/mesquinho-generator:0.0.2
     restart: always
 
   portfolio:
