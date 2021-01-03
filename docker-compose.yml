@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.18
+    image: quentinburgniard/casasogra:0.0.19
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -108,7 +108,7 @@ services:
 
   calculadora-generator:
     container_name: calculadora-generator
-    image: quentinburgniard/calculadora-generator:0.0.3
+    image: quentinburgniard/calculadora-generator:0.0.5
     restart: always
 
   portfolio:
