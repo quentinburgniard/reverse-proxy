@@ -106,9 +106,9 @@ services:
       - api
     restart: always
 
-  mesquinho-generator:
-    container_name: mesquinho-generator
-    image: quentinburgniard/mesquinho-generator:0.0.2
+  calculadora-generator:
+    container_name: calculadora-generator
+    image: quentinburgniard/calculadora-generator:0.0.3
     restart: always
 
   portfolio:
@@ -131,13 +131,13 @@ services:
       - 443:443
     depends_on:
       - api
+      - calculadora-generator
       - casasogra
       - cv
       - discover-me
       - hestia
       - invoice-generator
       - lavoieducoeur
-      - mesquinho-generator
       - portfolio
       - walisson
     restart: always
