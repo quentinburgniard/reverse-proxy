@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.19
+    image: quentinburgniard/casasogra:0.0.20
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -46,6 +46,7 @@ services:
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
     depends_on:
       - casasogra-data
+      - casasogra-embaixador
       - casasogra-mq
     restart: always
 
@@ -59,6 +60,14 @@ services:
       MYSQL_PASSWORD: $CASASOGRA_DATA_PASSWORD
     volumes:
       - casasogra-data:/var/lib/mysql
+    restart: always
+
+  casasogra-embaixador:
+    container_name: casasogra-embaixador
+    image: quentinburgniard/casasogra-embaixador:0.0.1
+    environment:
+      WOOCOMMERCE_USER: $WOOCOMMERCE_USER
+      WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
     restart: always
 
   casasogra-mq:
