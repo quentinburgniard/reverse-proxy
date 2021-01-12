@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.0.19
+    image: quentinburgniard/api:3.0.20
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
@@ -64,7 +64,7 @@ services:
 
   casasogra-embaixador:
     container_name: casasogra-embaixador
-    image: quentinburgniard/casasogra-embaixador:0.0.1
+    image: quentinburgniard/casasogra-embaixador:0.0.2
     environment:
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
       WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
