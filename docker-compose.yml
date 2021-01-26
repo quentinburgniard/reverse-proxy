@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.19
+    image: quentinburgniard/casasogra:0.0.20
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -72,8 +72,10 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.0.2
+    image: quentinburgniard/casasogra-mq:0.0.3
     environment:
+      CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
+      GOOGLE_TOKEN: $GOOGLE_TOKEN
       GSMTASKS_TOKEN: $GSMTASKS_TOKEN
       VENDUS_POS: $VENDUS_POS
       VENDUS_TOKEN: $VENDUS_TOKEN
@@ -122,7 +124,7 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.0.16
+    image: quentinburgniard/portfolio:2.1.0
     depends_on:
       - search
     restart: always
