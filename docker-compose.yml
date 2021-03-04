@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     container_name: api
-    image: quentinburgniard/api:3.1.0
+    image: quentinburgniard/api:3.2.0
     environment:
       ADMIN_TOKEN: $API_ADMIN_TOKEN
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.0.24
+    image: quentinburgniard/casasogra:0.1
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -72,7 +72,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.0.4
+    image: quentinburgniard/casasogra-mq:0.0.6
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
@@ -81,6 +81,7 @@ services:
       VENDUS_TOKEN: $VENDUS_TOKEN
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
       WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
     restart: always
     
   cv:
@@ -124,7 +125,7 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.1.0
+    image: quentinburgniard/portfolio:2.2.0
     depends_on:
       - search
     restart: always
