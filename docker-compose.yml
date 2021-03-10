@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.1
+    image: quentinburgniard/casasogra:0.2.1
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -72,7 +72,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.0.6
+    image: quentinburgniard/casasogra-mq:0.0.8
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
