@@ -103,7 +103,7 @@ services:
     
   hestia:
     container_name: hestia
-    image: quentinburgniard/hestia:0.0.13
+    image: quentinburgniard/hestia:0.0.14
     restart: always
 
   invoice-generator:
