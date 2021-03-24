@@ -72,16 +72,17 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.0.8
+    image: quentinburgniard/casasogra-mq:0.1.0
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
       GSMTASKS_TOKEN: $GSMTASKS_TOKEN
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
+      PRINTNODE_TOKEN: $PRINTNODE_TOKEN
       VENDUS_POS: $VENDUS_POS
       VENDUS_TOKEN: $VENDUS_TOKEN
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
       WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
-      SENDGRID_TOKEN: $SENDGRID_TOKEN
     restart: always
     
   cv:
