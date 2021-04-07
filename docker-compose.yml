@@ -30,9 +30,9 @@ services:
       - api-data:/data/db
     restart: always
 
-  # api-data-backup:
-  #   container_name: api-data-backup
-  #   image: quentinburgniard/api-data-backup:0.0.1
+  blendz:
+    container_name: blendz
+    image: quentinburgniard/blendz:0.0.1
 
   casasogra:
     container_name: casasogra
@@ -72,7 +72,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.1.0
+    image: quentinburgniard/casasogra-mq:0.1.1
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
@@ -144,6 +144,7 @@ services:
       - 443:443
     depends_on:
       - api
+      - blendz
       - calculadora-generator
       - casasogra
       - cv
