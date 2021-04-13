@@ -32,7 +32,7 @@ services:
 
   blendz:
     container_name: blendz
-    image: quentinburgniard/blendz:0.0.1
+    image: quentinburgniard/blendz:0.0.2
 
   casasogra:
     container_name: casasogra
@@ -144,7 +144,7 @@ services:
       - 443:443
     depends_on:
       - api
-      #- blendz
+      - blendz
       - calculadora-generator
       - casasogra
       - cv
