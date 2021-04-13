@@ -72,7 +72,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.2.0
+    image: quentinburgniard/casasogra-mq:0.2.1
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
