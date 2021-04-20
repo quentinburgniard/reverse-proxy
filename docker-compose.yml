@@ -72,13 +72,15 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.4.0
+    image: quentinburgniard/casasogra-mq:0.5.0
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
       GSMTASKS_TOKEN: $GSMTASKS_TOKEN
       SENDGRID_TOKEN: $SENDGRID_TOKEN
       PRINTNODE_TOKEN: $PRINTNODE_TOKEN
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
+      TWILIO_TOKEN: $TWILIO_TOKEN
       VENDUS_POS: $VENDUS_POS
       VENDUS_TOKEN: $VENDUS_TOKEN
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
