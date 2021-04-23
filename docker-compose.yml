@@ -73,7 +73,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.5.4
+    image: quentinburgniard/casasogra-mq:0.5.5
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
@@ -89,10 +89,12 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.1
+    image: quentinburgniard/casasogra-mq:1.0.2
     environment:
       VENDUS_PASSWORD: $VENDUS_TOKEN
       VENDUS_REGISTER_ID: $VENDUS_REGISTER_ID
+      WOOCOMMERCE_USER: $WOOCOMMERCE_USER
+      WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
     restart: always
     
   cv:
