@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.3.1
+    image: quentinburgniard/casasogra:0.3.2
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -48,6 +48,7 @@ services:
       - casasogra-data
       - casasogra-embaixador
       - casasogra-mq
+      - casasogra-mq-v2
     restart: always
 
   casasogra-data:
@@ -72,7 +73,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.5.3
+    image: quentinburgniard/casasogra-mq:0.5.4
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
@@ -84,6 +85,14 @@ services:
       VENDUS_TOKEN: $VENDUS_TOKEN
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
       WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
+    restart: always
+
+  casasogra-mq-v2:
+    container_name: casasogra-mq-v2
+    image: quentinburgniard/casasogra-mq:1.0.1
+    environment:
+      VENDUS_PASSWORD: $VENDUS_TOKEN
+      VENDUS_REGISTER_ID: $VENDUS_REGISTER_ID
     restart: always
     
   cv:
