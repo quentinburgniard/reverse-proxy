@@ -36,7 +36,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.3.2
+    image: quentinburgniard/casasogra:0.3.3
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -46,6 +46,7 @@ services:
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
     depends_on:
       - casasogra-data
+      - casasogra-cms
       - casasogra-embaixador
       - casasogra-mq
       - casasogra-mq-v2
@@ -61,6 +62,11 @@ services:
       MYSQL_PASSWORD: $CASASOGRA_DATA_PASSWORD
     volumes:
       - casasogra-data:/var/lib/mysql
+    restart: always
+
+  casasogra-cms:
+    container_name: casasogra-cms
+    image: quentinburgniard/casasogra-cms:0.0.1
     restart: always
 
   casasogra-embaixador:
