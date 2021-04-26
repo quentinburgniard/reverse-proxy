@@ -132,9 +132,7 @@ services:
     
   lavoieducoeur:
     container_name: lavoieducoeur
-    image: quentinburgniard/lavoieducoeur:1
-    depends_on:
-      - api
+    image: quentinburgniard/lavoieducoeur:1.0.2
     restart: always
 
   calculadora-generator:
