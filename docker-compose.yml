@@ -33,6 +33,7 @@ services:
   blendz:
     container_name: blendz
     image: quentinburgniard/blendz:0.0.2
+    restart: always
 
   casasogra:
     container_name: casasogra
