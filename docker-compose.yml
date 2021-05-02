@@ -96,10 +96,14 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.2
+    image: quentinburgniard/casasogra-mq:1.0.3
     environment:
+      CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
+      GLOVO_PASSWORD: $GLOVO_PASSWORD
+      GLOVO_STORE_ID: $GLOVO_STORE_ID
+      SLACK_PASSWORD: $SLACK_PASSWORD
       VENDUS_PASSWORD: $VENDUS_TOKEN
-      VENDUS_REGISTER_ID: $VENDUS_REGISTER_ID
+      VENDUS_STORE_ID: $VENDUS_REGISTER_ID
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
       WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
     restart: always
