@@ -80,7 +80,7 @@ services:
 
   casasogra-mq:
     container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.5.5
+    image: quentinburgniard/casasogra-mq:0.5.6
     environment:
       CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
       GOOGLE_TOKEN: $GOOGLE_TOKEN
@@ -96,7 +96,7 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.3
+    image: quentinburgniard/casasogra-mq:1.0.5
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
