@@ -32,7 +32,7 @@ services:
 
   blendz:
     container_name: blendz
-    image: quentinburgniard/blendz:0.0.6
+    image: quentinburgniard/blendz:0.0.7
     restart: always
 
   casasogra:
@@ -96,7 +96,7 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.11
+    image: quentinburgniard/casasogra-mq:1.0.12
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
