@@ -37,7 +37,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:0.3.6
+    image: quentinburgniard/casasogra:1.0.14
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
