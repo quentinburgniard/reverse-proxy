@@ -53,6 +53,11 @@ services:
       - casasogra-mq-v2
     restart: always
 
+  casasogra-cms:
+    container_name: casasogra-cms
+    image: quentinburgniard/casasogra-cms:0.0.5
+    restart: always
+
   casasogra-data:
     container_name: casasogra-data
     image: mariadb
@@ -63,11 +68,6 @@ services:
       MYSQL_PASSWORD: $CASASOGRA_DATA_PASSWORD
     volumes:
       - casasogra-data:/var/lib/mysql
-    restart: always
-
-  casasogra-cms:
-    container_name: casasogra-cms
-    image: quentinburgniard/casasogra-cms:0.0.4
     restart: always
 
   casasogra-embaixador:
@@ -96,7 +96,7 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.17
+    image: quentinburgniard/casasogra-mq:1.0.18
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
