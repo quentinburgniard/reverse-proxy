@@ -37,7 +37,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:1.0.15
+    image: quentinburgniard/casasogra:1.0.18
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -67,7 +67,7 @@ services:
 
   casasogra-cms:
     container_name: casasogra-cms
-    image: quentinburgniard/casasogra-cms:0.0.3
+    image: quentinburgniard/casasogra-cms:0.0.4
     restart: always
 
   casasogra-embaixador:
@@ -96,11 +96,15 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.14
+    image: quentinburgniard/casasogra-mq:1.0.16
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
       GLOVO_STORE_ID: $GLOVO_STORE_ID
+      GSMTASKS_PASSWORD: $GSMTASKS_TOKEN
+      GSMTASKS_STORE_ID: $GSMTASKS_STORE_ID
+      GSMTASKS_USER: $GSMTASKS_USER
+      PRINTNODE_PASSWORD: $PRINTNODE_TOKEN
       SLACK_PASSWORD: $SLACK_PASSWORD
       TWILIO_MESSAGING_SERVICE_ID: $TWILIO_MESSAGING_SERVICE_ID
       TWILIO_PASSWORD: $TWILIO_PASSWORD
