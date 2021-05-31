@@ -55,7 +55,7 @@ services:
 
   casasogra-cms:
     container_name: casasogra-cms
-    image: quentinburgniard/casasogra-cms:0.0.14
+    image: quentinburgniard/casasogra-cms:0.0.16
     restart: always
 
   casasogra-data:
@@ -96,7 +96,7 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.27
+    image: quentinburgniard/casasogra-mq:1.0.28
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
