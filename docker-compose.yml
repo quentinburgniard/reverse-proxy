@@ -96,7 +96,7 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.26
+    image: quentinburgniard/casasogra-mq:1.0.27
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
@@ -195,7 +195,7 @@ services:
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
-    image: quentinburgniard/ssl-certs-dev:1.1.0
+    image: quentinburgniard/ssl-certs-dev:1.1.1
     command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
     volumes:
       - ssl-certs:/ssl-certs
