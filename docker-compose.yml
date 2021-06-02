@@ -55,7 +55,7 @@ services:
 
   casasogra-cms:
     container_name: casasogra-cms
-    image: quentinburgniard/casasogra-cms:0.0.18
+    image: quentinburgniard/casasogra-cms:0.0.19
     restart: always
 
   casasogra-data:
