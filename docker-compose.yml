@@ -55,7 +55,7 @@ services:
 
   casasogra-cms:
     container_name: casasogra-cms
-    image: quentinburgniard/casasogra-cms:0.0.20
+    image: quentinburgniard/casasogra-cms:0.0.21
     restart: always
 
   casasogra-data:
@@ -96,11 +96,12 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.34
+    image: quentinburgniard/casasogra-mq:1.0.36
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
       GLOVO_STORE_ID: $GLOVO_STORE_ID
+      GOOGLE_APPLICATION_CREDENTIALS: /google-service-account.json
       GSMTASKS_PASSWORD: $GSMTASKS_TOKEN
       GSMTASKS_STORE_ID: $GSMTASKS_STORE_ID
       GSMTASKS_USER: $GSMTASKS_USER
@@ -113,6 +114,8 @@ services:
       VENDUS_STORE_ID: $VENDUS_REGISTER_ID
       WOOCOMMERCE_USER: $WOOCOMMERCE_USER
       WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
+    volumes:
+      - ./google-service-account.json:/google-service-account.json:ro
     restart: always
     
   cv:
