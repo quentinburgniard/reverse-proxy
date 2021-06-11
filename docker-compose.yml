@@ -96,7 +96,7 @@ services:
 
   casasogra-mq-v2:
     container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq:1.0.37
+    image: quentinburgniard/casasogra-mq:1.0.38
     environment:
       CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
       GLOVO_PASSWORD: $GLOVO_PASSWORD
