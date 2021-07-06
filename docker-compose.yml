@@ -37,7 +37,7 @@ services:
 
   casasogra:
     container_name: casasogra
-    image: quentinburgniard/casasogra:1.0.22
+    image: quentinburgniard/casasogra
     environment:
       DB_HOST: casasogra-data
       DB_NAME: casasogra
@@ -199,7 +199,7 @@ services:
   ssl-certs-dev:
     container_name: ssl-certs-dev
     image: quentinburgniard/ssl-certs-dev:1.1.1
-    command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digital-leman.com" -x509
+    command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digitalleman.com" -x509 -days 365
     volumes:
       - ssl-certs:/ssl-certs
 
