@@ -46,11 +46,17 @@ services:
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
     depends_on:
+      - casasogra-app
       - casasogra-data
       - casasogra-cms
       - casasogra-embaixador
       - casasogra-mq
       - casasogra-mq-v2
+    restart: always
+
+  casasogra-app:
+    container_name: casasogra-app
+    image: quentinburgniard/casasogra-app
     restart: always
 
   casasogra-cms:
