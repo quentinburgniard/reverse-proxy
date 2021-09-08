@@ -62,6 +62,8 @@ services:
   casasogra-cms:
     container_name: casasogra-cms
     image: quentinburgniard/casasogra-cms
+    environment:
+      CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
     restart: always
 
   casasogra-data:
