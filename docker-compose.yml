@@ -165,7 +165,7 @@ services:
 
   portfolio:
     container_name: portfolio
-    image: quentinburgniard/portfolio:2.2.0
+    image: quentinburgniard/portfolio
     depends_on:
       - search
     restart: always
