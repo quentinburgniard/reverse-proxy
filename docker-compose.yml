@@ -133,14 +133,7 @@ services:
 
   discover-me:
     container_name: discover-me
-    image: quentinburgniard/discover-me:1
-    depends_on:
-      - discover-me-data
-    restart: always
-
-  discover-me-data:
-    container_name: discover-me-data
-    image: quentinburgniard/discover-me-data:1
+    image: quentinburgniard/discover-me
     restart: always
     
   hestia:
@@ -151,11 +144,6 @@ services:
   invoice-generator:
     container_name: invoice-generator
     image: quentinburgniard/invoice-generator:1.0.2
-    restart: always
-    
-  lavoieducoeur:
-    container_name: lavoieducoeur
-    image: quentinburgniard/lavoieducoeur:1.0.2
     restart: always
 
   calculadora-generator:
@@ -190,7 +178,6 @@ services:
       - discover-me
       - hestia
       - invoice-generator
-      - lavoieducoeur
       - portfolio
       - walisson
     restart: always
