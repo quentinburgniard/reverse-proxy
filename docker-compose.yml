@@ -143,7 +143,7 @@ services:
 
   invoice-generator:
     container_name: invoice-generator
-    image: quentinburgniard/invoice-generator:1.0.2
+    image: quentinburgniard/invoice-generator
     restart: always
 
   calculadora-generator:
