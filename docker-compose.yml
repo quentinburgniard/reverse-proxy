@@ -156,6 +156,12 @@ services:
     image: quentinburgniard/portfolio
     depends_on:
       - search
+      - portfolio-category
+    restart: always
+
+  portfolio-category:
+    container_name: portfolio-category
+    image: quentinburgniard/portfolio-category
     restart: always
   
   reverse-proxy:
