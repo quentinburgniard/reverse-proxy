@@ -156,12 +156,12 @@ services:
     image: quentinburgniard/portfolio
     depends_on:
       - search
-      - porfolio-v4
+      - portfolio-v4
     restart: always
 
-  porfolio-v4:
-    container_name: porfolio-v4
-    image: quentinburgniard/porfolio-v4
+  portfolio-v4:
+    container_name: portfolio-v4
+    image: quentinburgniard/portfolio-v4
     restart: always
   
   reverse-proxy:
