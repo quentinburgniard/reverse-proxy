@@ -30,6 +30,28 @@ services:
       - api-data:/data/db
     restart: always
 
+  api-v2:
+    container_name: api-v2
+    image: quentinburgniard/api-v2
+    environment:
+      MYSQL_PASSWORD: $API_DATA_PASSWORD
+      MYSQL_USER: $API_DATA_USER
+    depends_on:
+      - api-v2-data
+    restart: always
+
+  api-v2-data:
+    container_name: api-v2-data
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: api
+      MYSQL_PASSWORD: $API_DATA_PASSWORD
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_USER: $API_DATA_USER
+    volumes:
+      - api-v2-data:/var/lib/mysql
+    restart: always
+
   blendz:
     container_name: blendz
     image: quentinburgniard/blendz:0.0.7
@@ -141,6 +163,11 @@ services:
     image: quentinburgniard/hestia
     restart: always
 
+  id:
+    container_name: id
+    image: quentinburgniard/id
+    restart: always
+
   invoice-generator:
     container_name: invoice-generator
     image: quentinburgniard/invoice-generator
@@ -177,12 +204,14 @@ services:
       - 443:443
     depends_on:
       - api
+      - api-v2
       - blendz
       - calculadora-generator
       - casasogra
       - cv
       - discover-me
       - hestia
+      - id
       - invoice-generator
       - portfolio
       - walisson
@@ -219,6 +248,7 @@ services:
 
 volumes:
   api-data:
+  api-v2-data:
   casasogra-data:
   search:
   ssl-certs:
