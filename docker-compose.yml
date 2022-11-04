@@ -46,7 +46,7 @@ services:
     environment:
       MYSQL_DATABASE: api
       MYSQL_PASSWORD: $API_DATA_PASSWORD
-      MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_USER: $API_DATA_USER
     volumes:
       - api-v2-data:/var/lib/mysql
