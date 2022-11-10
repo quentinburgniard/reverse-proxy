@@ -34,8 +34,11 @@ services:
     container_name: api-v2
     image: quentinburgniard/api-v2
     environment:
+      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
+      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
       MYSQL_PASSWORD: $API_DATA_PASSWORD
       MYSQL_USER: $API_DATA_USER
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
       - api-v2-data
     restart: always
@@ -178,6 +181,11 @@ services:
     image: quentinburgniard/calculadora-generator:0.0.5
     restart: always
 
+  papyrus:
+    container_name: papyrus
+    image: quentinburgniard/papyrus
+    restart: always
+
   portfolio:
     container_name: portfolio
     image: quentinburgniard/portfolio
@@ -213,6 +221,7 @@ services:
       - hestia
       - id
       - invoice-generator
+      - papyrus
       - portfolio
       - walisson
     restart: always
