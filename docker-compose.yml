@@ -40,11 +40,22 @@ services:
       MYSQL_USER: $API_DATA_USER
       SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
-      - api-v2-data
+      - backup
+      - db
     restart: always
 
-  api-v2-data:
-    container_name: api-v2-data
+  backup:
+    container_name: backup
+    image: quentinburgniard/backup
+    environment:
+      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
+      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
+      MYSQL_PASSWORD: $API_DATA_PASSWORD
+      MYSQL_USER: $API_DATA_USER
+    restart: always
+
+  db:
+    container_name: db
     image: mariadb
     environment:
       MYSQL_DATABASE: api
@@ -52,7 +63,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_USER: $API_DATA_USER
     volumes:
-      - api-v2-data:/var/lib/mysql
+      - db:/var/lib/mysql
     restart: always
 
   blendz:
@@ -259,6 +270,7 @@ volumes:
   api-data:
   api-v2-data:
   casasogra-data:
+  db:
   search:
   ssl-certs:
   api:
