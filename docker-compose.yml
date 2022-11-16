@@ -34,8 +34,6 @@ services:
     container_name: api-v2
     image: quentinburgniard/api-v2
     environment:
-      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
-      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
       MYSQL_PASSWORD: $API_DATA_PASSWORD
       MYSQL_USER: $API_DATA_USER
       SENDGRID_TOKEN: $SENDGRID_TOKEN
