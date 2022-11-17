@@ -38,7 +38,6 @@ services:
       MYSQL_USER: $API_DATA_USER
       SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
-      - backup
       - db
     restart: always
 
@@ -62,6 +61,8 @@ services:
       MYSQL_USER: $API_DATA_USER
     volumes:
       - db:/var/lib/mysql
+    depends_on:
+      - backup
     restart: always
 
   blendz:
