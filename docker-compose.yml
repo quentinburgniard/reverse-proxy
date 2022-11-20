@@ -198,6 +198,11 @@ services:
     image: quentinburgniard/papyrus
     restart: always
 
+  prez:
+    container_name: prez
+    image: quentinburgniard/prez
+    restart: always
+
   portfolio:
     container_name: portfolio
     image: quentinburgniard/portfolio
@@ -234,6 +239,7 @@ services:
       - id
       - invoice-generator
       - papyrus
+      - prez
       - portfolio
       - walisson
     restart: always
