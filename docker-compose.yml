@@ -41,6 +41,7 @@ services:
       SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
       - db
+      - private
     restart: always
 
   backup:
@@ -201,6 +202,14 @@ services:
   prez:
     container_name: prez
     image: quentinburgniard/prez
+    restart: always
+  
+  private:
+    container_name: private
+    image: quentinburgniard/private
+    environment:
+      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
+      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
     restart: always
 
   portfolio:
