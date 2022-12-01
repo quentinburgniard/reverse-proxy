@@ -1,5 +1,1 @@
-.env
-id_rsa
-digitalocean.ini
-.htpasswd
-google-service-account.json
+.DS_Store
