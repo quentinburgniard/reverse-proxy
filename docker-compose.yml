@@ -198,7 +198,7 @@ services:
     container_name: ftp
     image: fauria/vsftpd
     environment:
-      LOG_STDOUT: true
+      LOG_STDOUT: 'true'
       PASV_ADDRESS: 139.59.206.105
     volumes:
       - ftp:/home/vsftpd
