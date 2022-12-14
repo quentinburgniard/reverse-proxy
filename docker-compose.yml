@@ -199,7 +199,7 @@ services:
     image: fauria/vsftpd
     environment:
       PASV_ADDRESS: digitalleman.com
-      PASV_ADDR_RESOLVE: YES
+      PASV_ADDR_RESOLVE: "YES"
     volumes:
       - ftp:/home/vsftpd
     ports:
