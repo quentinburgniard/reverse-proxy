@@ -198,7 +198,7 @@ services:
     container_name: ftp
     image: fauria/vsftpd
     environment:
-      PASV_ADDRESS: 139.59.206.105
+      PASV_ADDRESS: 127.0.0.1
     volumes:
       - ftp:/home/vsftpd
     ports:
