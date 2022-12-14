@@ -198,8 +198,8 @@ services:
     container_name: ftp
     image: fauria/vsftpd
     environment:
-      PASV_ADDRESS: digitalleman.com
-      PASV_ADDR_RESOLVE: "YES"
+      LOG_STDOUT: true
+      PASV_ADDRESS: 139.59.206.105
     volumes:
       - ftp:/home/vsftpd
     ports:
