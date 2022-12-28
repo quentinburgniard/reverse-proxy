@@ -11,6 +11,7 @@ services:
       DATA_SERVICE: api-data
       DATA_USER: $API_DATA_USER
       DATA_PASSWORD: $API_DATA_PASSWORD
+      SALT: $API_SALT
       SENDGRID_TOKEN: $SENDGRID_TOKEN
       USER_TOKEN: $API_USER_TOKEN
     volumes:
