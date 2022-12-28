@@ -301,6 +301,7 @@ volumes:
   api-v2-data:
   casasogra-data:
   db:
+  ftp:
   search:
   ssl-certs:
   api:
