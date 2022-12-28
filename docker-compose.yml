@@ -94,7 +94,7 @@ services:
       - casasogra-data
       - casasogra-cms
       - casasogra-embaixador
-      - casasogra-mq
+      # - casasogra-mq 
       - casasogra-mq-v2
     restart: always
 
