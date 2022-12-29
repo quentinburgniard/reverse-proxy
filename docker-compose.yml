@@ -85,6 +85,8 @@ services:
   calendar:
     container_name: calendar
     image: quentinburgniard/calendar
+    environment:
+      TOKEN: $CALENDAR_TOKEN
     restart: always
 
   casasogra:
