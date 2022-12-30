@@ -39,6 +39,7 @@ services:
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
       MYSQL_PASSWORD: $API_DATA_PASSWORD
       MYSQL_USER: $API_DATA_USER
+      SALT: $API_SALT
       SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
       - db
@@ -87,6 +88,7 @@ services:
     image: quentinburgniard/calendar
     environment:
       TOKEN: $CALENDAR_TOKEN
+      TZ: Europe/Berlin
     restart: always
 
   casasogra:
