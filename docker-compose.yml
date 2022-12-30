@@ -41,6 +41,7 @@ services:
       MYSQL_PASSWORD: $API_DATA_PASSWORD
       MYSQL_USER: $API_DATA_USER
       SALT: $API_SALT
+      SECRET: $API_SECRET
       SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
       - db
