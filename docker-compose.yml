@@ -45,6 +45,7 @@ services:
       SENDGRID_TOKEN: $SENDGRID_TOKEN
     depends_on:
       - db
+      - mq
       - private
     restart: always
 
