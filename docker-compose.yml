@@ -81,6 +81,11 @@ services:
       PMA_HOST: db
     restart: always
 
+  antoineburgniard:
+    container_name: antoineburgniard
+    image: quentinburgniard/antoineburgniard
+    restart: always
+
   blendz:
     container_name: blendz
     image: quentinburgniard/blendz:0.0.7
