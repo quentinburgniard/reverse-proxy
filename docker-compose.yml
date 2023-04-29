@@ -255,6 +255,11 @@ services:
     container_name: portfolio-v4
     image: quentinburgniard/portfolio-v4
     restart: always
+
+  design-system:
+    container_name: design-system
+    image: quentinburgniard/design-system
+    restart: always
   
   reverse-proxy:
     container_name: reverse-proxy
@@ -276,6 +281,7 @@ services:
       - calendar
       - casasogra
       - cv
+      - design-system
       - discover-me
       - hestia
       - id
