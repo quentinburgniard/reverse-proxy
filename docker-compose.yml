@@ -200,9 +200,9 @@ services:
     image: quentinburgniard/discover-me
     restart: always
     
-  hestia:
-    container_name: hestia
-    image: quentinburgniard/hestia
+  valerie:
+    container_name: valerie
+    image: quentinburgniard/valerie
     restart: always
 
   id:
@@ -283,7 +283,7 @@ services:
       - cv
       - design-system
       - discover-me
-      - hestia
+      - valerie
       - id
       - invoice-generator
       - papyrus
