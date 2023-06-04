@@ -1,39 +1,13 @@
-version: "3.7"
+version: "3.8"
 
 services:
+  antoineburgniard:
+    container_name: antoineburgniard
+    image: quentinburgniard/antoineburgniard
+    restart: always
+
   api:
     container_name: api
-    image: quentinburgniard/api
-    environment:
-      ADMIN_TOKEN: $API_ADMIN_TOKEN
-      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
-      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
-      DATA_SERVICE: api-data
-      DATA_USER: $API_DATA_USER
-      DATA_PASSWORD: $API_DATA_PASSWORD
-      SALT: $API_SALT
-      SECRET: $API_SECRET
-      SENDGRID_TOKEN: $SENDGRID_TOKEN
-      USER_TOKEN: $API_USER_TOKEN
-    volumes:
-      - api:/usr/src/api/strapi
-    depends_on:
-      - api-data
-    restart: always
-
-  api-data:
-    container_name: api-data
-    image: mongo:4
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: $API_DATA_USER
-      MONGO_INITDB_ROOT_PASSWORD: $API_DATA_PASSWORD
-      MONGO_INITDB_DATABASE: api
-    volumes:
-      - api-data:/data/db
-    restart: always
-
-  api-v2:
-    container_name: api-v2
     image: quentinburgniard/api-v2
     environment:
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
@@ -46,7 +20,6 @@ services:
     depends_on:
       - db
       - mq
-      - private
     restart: always
 
   backup:
@@ -57,6 +30,24 @@ services:
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
       MYSQL_PASSWORD: $API_DATA_PASSWORD
       MYSQL_USER: $API_DATA_USER
+    restart: always
+
+  blendz:
+    container_name: blendz
+    image: quentinburgniard/blendz:0.0.7
+    restart: always
+
+  calendar:
+    container_name: calendar
+    image: quentinburgniard/calendar
+    environment:
+      TOKEN: $CALENDAR_TOKEN
+      TZ: Europe/Berlin
+    restart: always
+    
+  cv:
+    container_name: cv
+    image: quentinburgniard/cv
     restart: always
 
   db:
@@ -81,128 +72,14 @@ services:
       PMA_HOST: db
     restart: always
 
-  antoineburgniard:
-    container_name: antoineburgniard
-    image: quentinburgniard/antoineburgniard
-    restart: always
-
-  blendz:
-    container_name: blendz
-    image: quentinburgniard/blendz:0.0.7
-    restart: always
-
-  calendar:
-    container_name: calendar
-    image: quentinburgniard/calendar
-    environment:
-      TOKEN: $CALENDAR_TOKEN
-      TZ: Europe/Berlin
-    restart: always
-
-  casasogra:
-    container_name: casasogra
-    image: quentinburgniard/casasogra
-    environment:
-      DB_HOST: casasogra-data
-      DB_NAME: casasogra
-      DB_PASSWORD: $CASASOGRA_DATA_PASSWORD
-      DB_USER: $CASASOGRA_DATA_USER
-      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
-      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
-    depends_on:
-      - casasogra-app
-      - casasogra-data
-      - casasogra-cms
-      - casasogra-embaixador
-      # - casasogra-mq 
-      - casasogra-mq-v2
-    restart: always
-
-  casasogra-app:
-    container_name: casasogra-app
-    image: quentinburgniard/casasogra-app
-    restart: always
-
-  casasogra-cms:
-    container_name: casasogra-cms
-    image: quentinburgniard/casasogra-cms
-    environment:
-      CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
-    restart: always
-
-  casasogra-data:
-    container_name: casasogra-data
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: $CASASOGRA_DATA_PASSWORD
-      MYSQL_DATABASE: casasogra
-      MYSQL_USER: $CASASOGRA_DATA_USER
-      MYSQL_PASSWORD: $CASASOGRA_DATA_PASSWORD
-    volumes:
-      - casasogra-data:/var/lib/mysql
-    restart: always
-
-  casasogra-embaixador:
-    container_name: casasogra-embaixador
-    image: quentinburgniard/casasogra-embaixador:0.0.2
-    environment:
-      WOOCOMMERCE_USER: $WOOCOMMERCE_USER
-      WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
-    restart: always
-
-  casasogra-mq:
-    container_name: casasogra-mq
-    image: quentinburgniard/casasogra-mq:0.5.6
-    environment:
-      CASASOGRA_MQ_TOKEN: $CASASOGRA_MQ_TOKEN
-      GOOGLE_TOKEN: $GOOGLE_TOKEN
-      GSMTASKS_TOKEN: $GSMTASKS_TOKEN
-      PRINTNODE_TOKEN: $PRINTNODE_TOKEN
-      SENDGRID_TOKEN: $SENDGRID_TOKEN
-      TWILIO_TOKEN: ${TWILIO_USER}:${TWILIO_PASSWORD}
-      VENDUS_POS: $VENDUS_POS
-      VENDUS_TOKEN: $VENDUS_TOKEN
-      WOOCOMMERCE_USER: $WOOCOMMERCE_USER
-      WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
-    restart: always
-
-  casasogra-mq-v2:
-    container_name: casasogra-mq-v2
-    image: quentinburgniard/casasogra-mq
-    environment:
-      CASASOGRA_MQ_PASSWORD: $CASASOGRA_MQ_TOKEN
-      GLOVO_PASSWORD: $GLOVO_PASSWORD
-      GLOVO_STORE_ID: $GLOVO_STORE_ID
-      GOOGLE_APPLICATION_CREDENTIALS: /google-service-account.json
-      GSMTASKS_PASSWORD: $GSMTASKS_TOKEN
-      GSMTASKS_STORE_ID: $GSMTASKS_STORE_ID
-      GSMTASKS_USER: $GSMTASKS_USER
-      PRINTNODE_PASSWORD: $PRINTNODE_TOKEN
-      SLACK_PASSWORD: $SLACK_PASSWORD
-      TWILIO_MESSAGING_SERVICE_ID: $TWILIO_MESSAGING_SERVICE_ID
-      TWILIO_PASSWORD: $TWILIO_PASSWORD
-      TWILIO_USER: $TWILIO_USER
-      VENDUS_PASSWORD: $VENDUS_TOKEN
-      VENDUS_STORE_ID: $VENDUS_REGISTER_ID
-      WOOCOMMERCE_USER: $WOOCOMMERCE_USER
-      WOOCOMMERCE_PASSWORD: $WOOCOMMERCE_PASSWORD
-    volumes:
-      - ./google-service-account.json:/google-service-account.json:ro
-    restart: always
-    
-  cv:
-    container_name: cv
-    image: quentinburgniard/cv
+  design-system:
+    container_name: design-system
+    image: quentinburgniard/design-system
     restart: always
 
   discover-me:
     container_name: discover-me
     image: quentinburgniard/discover-me
-    restart: always
-    
-  valerie:
-    container_name: valerie
-    image: quentinburgniard/valerie
     restart: always
 
   id:
@@ -215,11 +92,6 @@ services:
     image: quentinburgniard/invoice-generator
     restart: always
 
-  calculadora-generator:
-    container_name: calculadora-generator
-    image: quentinburgniard/calculadora-generator:0.0.5
-    restart: always
-
   mq:
     container_name: mq
     image: quentinburgniard/mq
@@ -230,35 +102,17 @@ services:
     image: quentinburgniard/papyrus
     restart: always
 
+  portfolio:
+    container_name: portfolio
+    image: quentinburgniard/portfolio-v4
+    environment:
+      RECAPTCHA_TOKEN: $RECAPTCHA_TOKEN
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
+    restart: always
+
   prez:
     container_name: prez
     image: quentinburgniard/prez
-    restart: always
-  
-  private:
-    container_name: private
-    image: quentinburgniard/private
-    environment:
-      DIGITALOCEAN_USER: $DIGITALOCEAN_USER
-      DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
-    restart: always
-
-  portfolio:
-    container_name: portfolio
-    image: quentinburgniard/portfolio
-    depends_on:
-      - search
-      - portfolio-v4
-    restart: always
-
-  portfolio-v4:
-    container_name: portfolio-v4
-    image: quentinburgniard/portfolio-v4
-    restart: always
-
-  design-system:
-    container_name: design-system
-    image: quentinburgniard/design-system
     restart: always
   
   reverse-proxy:
@@ -273,32 +127,29 @@ services:
       - 80:80
       - 443:443
     depends_on:
-      - api
       - antoineburgniard
-      - api-v2
+      - api
       - blendz
-      - calculadora-generator
       - calendar
-      - casasogra
       - cv
       - design-system
       - discover-me
-      - valerie
       - id
       - invoice-generator
       - papyrus
-      - prez
       - portfolio
+      - prez
+      - valerie
     restart: always
 
-  search:
-    container_name: search
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    environment:
-      - discovery.type=single-node
-    volumes:
-      - search:/usr/share/elasticsearch/data
-    restart: always
+  # search:
+  #   container_name: search
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+  #   environment:
+  #     - discovery.type=single-node
+  #   volumes:
+  #     - search:/usr/share/elasticsearch/data
+  #   restart: always
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
@@ -315,12 +166,14 @@ services:
       - ssl-certs:/etc/letsencrypt
       - ./ssl-certs/digitalocean.ini:/digitalocean.ini:ro
 
+  valerie:
+    container_name: valerie
+    image: quentinburgniard/valerie
+    restart: always
+
 volumes:
   api-data:
-  api-v2-data:
   casasogra-data:
   db:
-  ftp:
-  search:
   ssl-certs:
   api:
