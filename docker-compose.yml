@@ -117,7 +117,7 @@ services:
   
   reverse-proxy:
     container_name: reverse-proxy
-    image: quentinburgniard/reverse-proxy:1.1.2
+    image: nginx
     volumes:
       - ssl-certs:/ssl-certs:ro
       - ./reverse-proxy:/etc/nginx:ro
