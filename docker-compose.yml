@@ -124,6 +124,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 8259:8259
     depends_on:
       - antoineburgniard
       - api
