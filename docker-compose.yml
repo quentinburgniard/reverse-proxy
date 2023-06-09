@@ -12,8 +12,8 @@ services:
     environment:
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
-      MYSQL_PASSWORD: $API_DATA_PASSWORD
-      MYSQL_USER: $API_DATA_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_USER: $DB_USER
       SALT: $API_SALT
       SECRET: $API_SECRET
       SENDGRID_TOKEN: $SENDGRID_TOKEN
@@ -28,8 +28,8 @@ services:
     environment:
       DIGITALOCEAN_USER: $DIGITALOCEAN_USER
       DIGITALOCEAN_PASSWORD: $DIGITALOCEAN_PASSWORD
-      MYSQL_PASSWORD: $API_DATA_PASSWORD
-      MYSQL_USER: $API_DATA_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_USER: $DB_USER
     restart: always
 
   blendz:
@@ -55,14 +55,14 @@ services:
     image: mariadb
     environment:
       MYSQL_DATABASE: api
-      MYSQL_PASSWORD: $API_DATA_PASSWORD
+      MYSQL_PASSWORD: $DB_PASSWORD
       MYSQL_RANDOM_ROOT_PASSWORD: 'true'
-      MYSQL_USER: $API_DATA_USER
+      MYSQL_USER: $DB_USER
     volumes:
       - db:/var/lib/mysql
     depends_on:
       - db-admin
-      - backup
+      #- backup
     restart: always
 
   db-admin:
@@ -118,8 +118,6 @@ services:
   reverse-proxy:
     container_name: reverse-proxy
     image: quentinburgniard/reverse-proxy:1.1.2
-    environment:
-      AMPLIFY_IMAGENAME: $AMPLIFY
     volumes:
       - ssl-certs:/ssl-certs:ro
       - ./reverse-proxy:/etc/nginx:ro
@@ -172,8 +170,5 @@ services:
     restart: always
 
 volumes:
-  api-data:
-  casasogra-data:
   db:
   ssl-certs:
-  api:
