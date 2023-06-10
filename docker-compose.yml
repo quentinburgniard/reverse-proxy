@@ -62,7 +62,7 @@ services:
       - db:/var/lib/mysql
     depends_on:
       - db-admin
-      #- backup
+      - backup
     restart: always
 
   db-admin:
