@@ -119,6 +119,9 @@ services:
   rebelote:
     container_name: rebelote
     image: quentinburgniard/rebelote
+    environment:
+      SENDGRID_TOKEN: $SENDGRID_TOKEN
+      TOKEN: $REBELOTE_TOKEN
     restart: always
   
   reverse-proxy:
