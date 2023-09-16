@@ -122,6 +122,7 @@ services:
     environment:
       SENDGRID_TOKEN: $SENDGRID_TOKEN
       TOKEN: $REBELOTE_TOKEN
+      TZ: Europe/Berlin
     restart: always
   
   reverse-proxy:
