@@ -32,11 +32,6 @@ services:
       MYSQL_USER: $DB_USER
     restart: always
 
-  blendz:
-    container_name: blendz
-    image: quentinburgniard/blendz
-    restart: always
-
   calendar:
     container_name: calendar
     image: quentinburgniard/calendar
@@ -138,7 +133,6 @@ services:
     depends_on:
       - antoineburgniard
       - api
-      - blendz
       - calendar
       - cv
       - design-system
