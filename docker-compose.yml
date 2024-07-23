@@ -34,7 +34,7 @@ services:
 
   blendz:
     container_name: blendz
-    image: quentinburgniard/blendz:0.0.7
+    image: quentinburgniard/blendz
     restart: always
 
   calendar:
@@ -163,8 +163,8 @@ services:
   
   ssl-certs-dev:
     container_name: ssl-certs-dev
-    image: quentinburgniard/ssl-certs-dev:1.1.1
-    command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/C=CH/ST=Geneve/L=Geneve/O=Digital Leman/CN=digitalleman.com" -x509 -days 365
+    image: quentinburgniard/ssl-certs-dev
+    command: req -keyout /ssl-certs/live/d/privkey.pem -newkey rsa:2048 -nodes -out /ssl-certs/live/d/fullchain.pem -subj "/CN=Digital Leman/O=Digital Leman/OU=Digital Leman" -x509 -days 365
     volumes:
       - ssl-certs:/ssl-certs
 
