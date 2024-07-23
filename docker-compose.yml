@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   antoineburgniard:
     container_name: antoineburgniard
