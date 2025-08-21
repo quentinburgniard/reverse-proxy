@@ -1,0 +1,21 @@
+name: Kubernetes
+
+on:
+  push:
+    branches:
+      - k8s
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Install kubectl
+        run: sudo apt update && sudo apt install -y kubectl
+      - name: Set up kubeconfig
+        run: mkdir -p $HOME/.kube && echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      - name: Validate manifest
+        run: kubectl apply --dry-run=client -f ./k8s.yaml
+      - name: Deploy to cluster
+        run: kubectl apply -f ./k8s.yaml
