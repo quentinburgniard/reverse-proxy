@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reverse-proxy
+spec:
+  ingressClassName: nginx
+  rules:
+    # - host: api.local.digitalleman.com
+    #   http:
+    #     paths:
+    #       - path: /
+    #         pathType: Prefix
+    #         backend:
+    #           service:
+    #             name: api
+    #             port:
+    #               number: 80
+    - host: id.local.digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: id
+                port:
+                  number: 80
