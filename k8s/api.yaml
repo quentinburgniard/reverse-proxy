@@ -25,10 +25,42 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/quentinburgniard/api:5.0.0
+          image: ghcr.io/quentinburgniard/api:5.0.8
           env:
-            - name: NODE_ENV
-              value: "production"
+            - name: DB_HOST
+              value: "db"
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DB_PASSWORD
+            - name: URL
+              value: "api.local.digitalleman.com"
+            - name: SALTS
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_SALTS
+            - name: SECRETS
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_SECRETS
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: SENDGRID_API_KEY
           resources:
             limits:
               cpu: "300m"

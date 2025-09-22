@@ -5,16 +5,16 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    # - host: api.local.digitalleman.com
-    #   http:
-    #     paths:
-    #       - path: /
-    #         pathType: Prefix
-    #         backend:
-    #           service:
-    #             name: api
-    #             port:
-    #               number: 80
+    - host: api.local.digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
     - host: id.local.digitalleman.com
       http:
         paths:

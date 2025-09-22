@@ -26,9 +26,6 @@ spec:
       containers:
         - name: id
           image: ghcr.io/quentinburgniard/id:0.0.13
-          env:
-            - name: NODE_ENV
-              value: "production"
           resources:
             limits:
               cpu: "300m"

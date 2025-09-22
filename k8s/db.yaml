@@ -28,7 +28,6 @@ spec:
       containers:
         - name: mariadb
           image: mariadb:12
-          imagePullPolicy: IfNotPresent
           env:
             - name: MARIADB_DATABASE
               valueFrom:
