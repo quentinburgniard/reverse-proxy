@@ -60,7 +60,7 @@ services:
     environment:
       MYSQL_DATABASE: api
       MYSQL_PASSWORD: $API_DATA_PASSWORD
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_USER: $API_DATA_USER
     volumes:
       - db:/var/lib/mysql
@@ -163,7 +163,7 @@ services:
     volumes:
       - ./google-service-account.json:/google-service-account.json:ro
     restart: always
-    
+
   cv:
     container_name: cv
     image: quentinburgniard/cv
@@ -173,7 +173,7 @@ services:
     container_name: discover-me
     image: quentinburgniard/discover-me
     restart: always
-    
+
   hestia:
     container_name: hestia
     image: quentinburgniard/hestia
@@ -203,7 +203,7 @@ services:
     container_name: prez
     image: quentinburgniard/prez
     restart: always
-  
+
   private:
     container_name: private
     image: quentinburgniard/private
@@ -224,7 +224,7 @@ services:
     container_name: portfolio-v4
     image: quentinburgniard/portfolio-v4
     restart: always
-  
+
   reverse-proxy:
     container_name: reverse-proxy
     image: quentinburgniard/reverse-proxy:1.1.2
@@ -261,7 +261,7 @@ services:
     volumes:
       - search:/usr/share/elasticsearch/data
     restart: always
-  
+
   ssl-certs-dev:
     container_name: ssl-certs-dev
     image: quentinburgniard/ssl-certs-dev:1.1.1

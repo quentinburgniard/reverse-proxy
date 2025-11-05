@@ -16,6 +16,6 @@ jobs:
       - name: Set up kubeconfig
         run: mkdir -p $HOME/.kube && echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
       - name: Validate manifest
-        run: kubectl apply --dry-run=client -f ./k8s
+        run: kubectl apply --dry-run=client -f ./common -f ./prod
       - name: Deploy to cluster
-        run: kubectl apply -f ./k8s
+        run: kubectl apply -f ./common -f ./prod

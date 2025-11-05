@@ -7,7 +7,7 @@ spec:
     - name: http
       port: 80
   selector:
-    app: id
+    app: api
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/quentinburgniard/api:5.0.8
+          image: ghcr.io/quentinburgniard/api:5.0.11
           env:
             - name: DB_HOST
               value: "db"
@@ -45,7 +45,10 @@ spec:
                   name: env
                   key: DB_PASSWORD
             - name: URL
-              value: "api.local.digitalleman.com"
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: API_URL
             - name: SALTS
               valueFrom:
                 secretKeyRef:
@@ -62,6 +65,9 @@ spec:
                   name: env
                   key: SENDGRID_API_KEY
           resources:
-            limits:
-              cpu: "300m"
+            requests:
+              cpu: "250m"
               memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "512Mi"
