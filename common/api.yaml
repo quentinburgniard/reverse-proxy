@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/quentinburgniard/api:5.1.5
+          image: ghcr.io/quentinburgniard/api:5.1.6
           env:
             - name: DB_HOST
               value: "db"
@@ -59,11 +59,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: API_SECRETS
-            - name: SENDGRID_API_KEY
+            - name: MAILGUN_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: SENDGRID_API_KEY
+                  key: MAILGUN_API_KEY
           resources:
             requests:
               cpu: "250m"
