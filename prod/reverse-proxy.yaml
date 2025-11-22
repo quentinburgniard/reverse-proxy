@@ -11,6 +11,7 @@ spec:
   tls:
     - hosts:
         - api.preview.digitalleman.com
+        - calendar.preview.digitalleman.com
         - id.preview.digitalleman.com
       secretName: cert
   rules:
@@ -22,6 +23,16 @@ spec:
             backend:
               service:
                 name: api
+                port:
+                  number: 80
+    - host: calendar.preview.digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: calendar
                 port:
                   number: 80
     - host: id.preview.digitalleman.com
