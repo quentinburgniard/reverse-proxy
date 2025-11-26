@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: calendar
-          image: ghcr.io/quentinburgniard/calendar:1.0.2
+          image: ghcr.io/quentinburgniard/calendar:1.0.4
           resources:
             requests:
               cpu: "250m"
