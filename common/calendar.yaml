@@ -25,7 +25,13 @@ spec:
     spec:
       containers:
         - name: calendar
-          image: ghcr.io/quentinburgniard/calendar:1.0.9
+          image: ghcr.io/quentinburgniard/calendar:1.0.10
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CALENDAR_API_KEY
           resources:
             requests:
               cpu: "250m"
