@@ -12,7 +12,7 @@ spec:
     - hosts:
         - api.preview.digitalleman.com
         - calendar.digitalleman.com
-        - id.preview.digitalleman.com
+        - id.digitalleman.com
       secretName: cert
   rules:
     - host: api.preview.digitalleman.com
@@ -35,7 +35,7 @@ spec:
                 name: calendar
                 port:
                   number: 80
-    - host: id.preview.digitalleman.com
+    - host: id.digitalleman.com
       http:
         paths:
           - path: /
