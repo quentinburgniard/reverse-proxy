@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/quentinburgniard/api:5.1.17
+          image: ghcr.io/quentinburgniard/api:5.1.18
           env:
             - name: DB_HOST
               value: "db"
@@ -64,6 +64,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: MAILGUN_API_KEY
+            - name: FIXER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: FIXER_API_KEY
           resources:
             requests:
               cpu: "250m"
