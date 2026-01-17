@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: penny
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: penny
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: penny
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: penny
+  template:
+    metadata:
+      labels:
+        app: penny
+    spec:
+      containers:
+        - name: penny
+          image: ghcr.io/quentinburgniard/penny:0.0.4
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"

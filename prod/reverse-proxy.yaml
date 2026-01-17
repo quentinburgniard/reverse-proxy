@@ -13,6 +13,7 @@ spec:
         - api.preview.digitalleman.com
         - calendar.digitalleman.com
         - id.digitalleman.com
+        - penny.digitalleman.com
       secretName: cert
   rules:
     - host: api.preview.digitalleman.com
@@ -43,5 +44,15 @@ spec:
             backend:
               service:
                 name: id
+                port:
+                  number: 80
+    - host: penny.digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: penny
                 port:
                   number: 80
