@@ -14,6 +14,7 @@ spec:
         - calendar.digitalleman.com
         - id.digitalleman.com
         - penny.digitalleman.com
+        - zjJXk7Fv.preview.digitalleman.com
       secretName: cert
   rules:
     - host: api.preview.digitalleman.com
