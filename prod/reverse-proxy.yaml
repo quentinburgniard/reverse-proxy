@@ -26,6 +26,16 @@ spec:
                 name: api
                 port:
                   number: 80
+    - host: zjJXk7Fv.preview.digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: db-admin
+                port:
+                  number: 8080
     - host: calendar.digitalleman.com
       http:
         paths:

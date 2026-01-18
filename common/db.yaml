@@ -77,3 +77,42 @@ spec:
         resources:
           requests:
             storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-admin
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: db-admin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-admin
+  template:
+    metadata:
+      labels:
+        app: db-admin
+    spec:
+      containers:
+        - name: db-admin
+          image: phpmyadmin:5
+          env:
+            - name: PMA_HOST
+              value: "db"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
