@@ -62,7 +62,7 @@ kind: Ingress
 metadata:
   name: internal
   annotations:
-    cert-manager.io/cluster-issuer: cert
+    cert-manager.io/cluster-issuer: internal-cert
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/whitelist-source-range: "213.55.174.37/32"
     nginx.ingress.kubernetes.io/auth-type: basic
