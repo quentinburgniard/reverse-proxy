@@ -106,6 +106,9 @@ spec:
       containers:
         - name: db-admin
           image: phpmyadmin:5.2.3
+          env:
+            - name: PMA_HOST
+              value: "db"
           resources:
             requests:
               cpu: "250m"

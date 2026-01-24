@@ -82,6 +82,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: id
+                name: db-admin
                 port:
                   number: 80
