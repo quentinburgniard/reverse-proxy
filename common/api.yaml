@@ -59,6 +59,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: API_SECRETS
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GEMINI_API_KEY
             - name: MAILGUN_API_KEY
               valueFrom:
                 secretKeyRef:
