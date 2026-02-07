@@ -76,12 +76,12 @@ spec:
                   key: FIXER_API_KEY
             - name: INFOMANIAK_URL
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: env
                   key: INFOMANIAK_URL
             - name: INFOMANIAK_BUCKET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: env
                   key: INFOMANIAK_BUCKET
             - name: INFOMANIAK_ACCESS
