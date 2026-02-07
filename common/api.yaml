@@ -74,6 +74,31 @@ spec:
                 secretKeyRef:
                   name: env
                   key: FIXER_API_KEY
+            - name: INFOMANIAK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: INFOMANIAK_URL
+            - name: INFOMANIAK_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: INFOMANIAK_BUCKET
+            - name: INFOMANIAK_ACCESS
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: INFOMANIAK_ACCESS
+            - name: INFOMANIAK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: INFOMANIAK_SECRET
+            - name: SENTRY_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: SENTRY_URL
           resources:
             requests:
               cpu: "250m"
