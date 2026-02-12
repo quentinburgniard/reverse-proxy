@@ -10,6 +10,7 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
+        - files.digitalleman.com
         - api.preview.digitalleman.com
         - calendar.digitalleman.com
         - id.digitalleman.com
@@ -54,6 +55,32 @@ spec:
             backend:
               service:
                 name: penny
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: files
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /v5/files/$1
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - files.digitalleman.com
+      secretName: cert
+  rules:
+    - host: files.digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: api
                 port:
                   number: 80
 ---
