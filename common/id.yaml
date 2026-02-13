@@ -25,7 +25,18 @@ spec:
     spec:
       containers:
         - name: id
-          image: ghcr.io/quentinburgniard/id:0.0.22
+          image: ghcr.io/quentinburgniard/id:0.0.23
+          env:
+            - name: COOKIE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: COOKIE_DOMAIN
+            - name: API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: API_BASE_URL
           resources:
             requests:
               cpu: "250m"

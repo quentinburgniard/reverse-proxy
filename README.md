@@ -2,15 +2,21 @@
 
 ## Quick Start
 
-### 1. Create secret
+### 1. Prepare local env files
 
-`kubectl create secret generic env --from-env-file=.env --dry-run=client -o yaml | kubectl apply -f -`
+`cp .env.example .env`
+
+`cp .conf.example .conf`
 
 ### 2. Create secret
 
+`kubectl create secret generic env --from-env-file=.env --dry-run=client -o yaml | kubectl apply -f -`
+
+### 3. Create secret
+
 `kubectl create secret generic internal-auth --from-file=auth=.htpasswd --dry-run=client -o yaml | kubectl apply -f -`
 
-### 3. Create config
+### 4. Create config
 
 `kubectl create configmap env --from-env-file=.conf --dry-run=client -o yaml | kubectl apply -f -`
 
