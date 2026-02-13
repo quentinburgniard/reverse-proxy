@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: id
-          image: ghcr.io/quentinburgniard/id:0.0.20
+          image: ghcr.io/quentinburgniard/id:0.0.22
           resources:
             requests:
               cpu: "250m"
