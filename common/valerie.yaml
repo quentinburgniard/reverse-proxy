@@ -1,42 +1,47 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: id
+  name: valerie
 spec:
   ports:
     - name: http
       port: 80
   selector:
-    app: id
+    app: valerie
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: id
+  name: valerie
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: id
+      app: valerie
   template:
     metadata:
       labels:
-        app: id
+        app: valerie
     spec:
       containers:
-        - name: id
-          image: ghcr.io/quentinburgniard/id:0.0.24
+        - name: valerie
+          image: ghcr.io/quentinburgniard/valerie:1.0.5
           env:
-            - name: COOKIE_DOMAIN
-              valueFrom:
-                configMapKeyRef:
-                  name: env
-                  key: COOKIE_DOMAIN
             - name: API_BASE_URL
               valueFrom:
                 configMapKeyRef:
                   name: env
                   key: API_BASE_URL
+            - name: API_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: VALERIE_API_ID
+            - name: API_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: VALERIE_API_TOKEN
           resources:
             requests:
               cpu: "250m"

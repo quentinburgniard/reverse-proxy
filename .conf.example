@@ -1,6 +1,10 @@
 API_URL=***
 API_BASE_URL=***
 
+AUTHORIZED_URLS=https://example.com
+
 DB_NAME=***
 
 COOKIE_DOMAIN=***
+
+VALERIE_API_ID=***

@@ -14,7 +14,7 @@ spec:
         - api.preview.digitalleman.com
         - calendar.digitalleman.com
         - id.digitalleman.com
-        - penny.digitalleman.com
+        - app.squirel.li
       secretName: cert
   rules:
     - host: api.preview.digitalleman.com
@@ -47,14 +47,14 @@ spec:
                 name: id
                 port:
                   number: 80
-    - host: penny.digitalleman.com
+    - host: app.squirel.li
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: penny
+                name: squirelli
                 port:
                   number: 80
 ---
