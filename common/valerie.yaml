@@ -27,7 +27,7 @@ spec:
         - name: ghcr
       containers:
         - name: valerie
-          image: ghcr.io/quentinburgniard/valerie:1.0.5
+          image: ghcr.io/quentinburgniard/valerie:1.0.6
           env:
             - name: API_BASE_URL
               valueFrom:
