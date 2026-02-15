@@ -15,7 +15,7 @@ spec:
         - api.preview.digitalleman.com
         - calendar.digitalleman.com
         - id.digitalleman.com
-        - app.squirel.li
+        - app.squirrel.li
         - valeriestauffer.ch
         - www.valeriestauffer.ch
       secretName: cert
@@ -50,14 +50,14 @@ spec:
                 name: id
                 port:
                   number: 80
-    - host: app.squirel.li
+    - host: app.squirrel.li
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: squirelli
+                name: squirrelli
                 port:
                   number: 80
     - host: valeriestauffer.ch
