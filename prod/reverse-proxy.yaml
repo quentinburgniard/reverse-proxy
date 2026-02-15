@@ -6,6 +6,7 @@ metadata:
     cert-manager.io/cluster-issuer: cert
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
@@ -15,6 +16,8 @@ spec:
         - calendar.digitalleman.com
         - id.digitalleman.com
         - app.squirel.li
+        - valeriestauffer.ch
+        - www.valeriestauffer.ch
       secretName: cert
   rules:
     - host: api.preview.digitalleman.com
@@ -55,6 +58,16 @@ spec:
             backend:
               service:
                 name: squirelli
+                port:
+                  number: 80
+    - host: valeriestauffer.ch
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: valerie
                 port:
                   number: 80
 ---
