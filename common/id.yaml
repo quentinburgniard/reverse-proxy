@@ -23,6 +23,8 @@ spec:
       labels:
         app: id
     spec:
+      imagePullSecrets:
+        - name: ghcr
       containers:
         - name: id
           image: ghcr.io/quentinburgniard/id:0.0.24
