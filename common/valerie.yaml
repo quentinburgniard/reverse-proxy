@@ -41,7 +41,7 @@ spec:
                   key: VALERIE_API_ID
             - name: API_TOKEN
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: env
                   key: VALERIE_API_TOKEN
           resources:
