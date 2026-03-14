@@ -6,5 +6,6 @@ AUTHORIZED_URLS=https://example.com
 DB_NAME=***
 
 COOKIE_DOMAIN=***
+ORIGINS=https://example.com
 
 VALERIE_API_ID=***
