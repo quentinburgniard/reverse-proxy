@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: calendar
-          image: ghcr.io/quentinburgniard/calendar:1.0.17
+          image: ghcr.io/quentinburgniard/calendar:1.0.18
           env:
             - name: API_BASE_URL
               valueFrom:
