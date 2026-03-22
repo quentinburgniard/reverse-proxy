@@ -18,4 +18,4 @@ jobs:
       - name: Validate manifest
         run: kubectl apply --dry-run=client -f ./common -f ./prod
       - name: Deploy to cluster
-        run: kubectl apply -f ./common -f ./prod
+        run: kubectl apply -f ./common -f ./prod --prune
