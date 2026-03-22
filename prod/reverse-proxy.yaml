@@ -12,16 +12,20 @@ spec:
   tls:
     - hosts:
         - files.digitalleman.com
-        - api.preview.digitalleman.com
+        - api.digitalleman.com
         - calendar.digitalleman.com
         - id.digitalleman.com
         - app.squirrel.li
         - valeriestauffer.ch
         - www.valeriestauffer.ch
         - design-system.digitalleman.com
+        - digitalleman.com
+        - www.digitalleman.com
+        - quentinburgniard.com
+        - www.quentinburgniard.com
       secretName: cert
   rules:
-    - host: api.preview.digitalleman.com
+    - host: api.digitalleman.com
       http:
         paths:
           - path: /
@@ -79,6 +83,26 @@ spec:
             backend:
               service:
                 name: design-system
+                port:
+                  number: 80
+    - host: digitalleman.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio-digitalleman
+                port:
+                  number: 80
+    - host: quentinburgniard.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio-quentinburgniard
                 port:
                   number: 80
 ---

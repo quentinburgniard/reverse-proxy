@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-digitalleman
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: portfolio-digitalleman
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-digitalleman
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-digitalleman
+  template:
+    metadata:
+      labels:
+        app: portfolio-digitalleman
+    spec:
+      imagePullSecrets:
+        - name: ghcr
+      containers:
+        - name: portfolio-digitalleman
+          image: ghcr.io/quentinburgniard/portfolio:1.5.0
+          env:
+            - name: API_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: PORTFOLIO_DIGITALLEMAN_API_ID
+            - name: API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: API_BASE_URL
+            - name: GOOGLE_RECAPTCHA_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: GOOGLE_RECAPTCHA_ID
+            - name: GOOGLE_RECAPTCHA_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GOOGLE_RECAPTCHA_TOKEN
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: PORTFOLIO_API_TOKEN
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-quentinburgniard
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: portfolio-quentinburgniard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-quentinburgniard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-quentinburgniard
+  template:
+    metadata:
+      labels:
+        app: portfolio-quentinburgniard
+    spec:
+      imagePullSecrets:
+        - name: ghcr
+      containers:
+        - name: portfolio-quentinburgniard
+          image: ghcr.io/quentinburgniard/portfolio:1.5.0
+          env:
+            - name: API_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: PORTFOLIO_QUENTINBURGNIARD_API_ID
+            - name: API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: API_BASE_URL
+            - name: GOOGLE_RECAPTCHA_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: GOOGLE_RECAPTCHA_ID
+            - name: GOOGLE_RECAPTCHA_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GOOGLE_RECAPTCHA_TOKEN
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: PORTFOLIO_API_TOKEN
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"

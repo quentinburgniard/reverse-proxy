@@ -27,7 +27,7 @@ spec:
         - name: ghcr
       containers:
         - name: id
-          image: ghcr.io/quentinburgniard/id:0.0.28
+          image: ghcr.io/quentinburgniard/id:1.0.0
           env:
             - name: COOKIE_DOMAIN
               valueFrom:
