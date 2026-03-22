@@ -18,6 +18,7 @@ spec:
         - app.squirrel.li
         - valeriestauffer.ch
         - www.valeriestauffer.ch
+        - design-system.digitalleman.com
       secretName: cert
   rules:
     - host: api.preview.digitalleman.com
