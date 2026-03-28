@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: squirrelli
-          image: ghcr.io/quentinburgniard/penny:0.0.15
+          image: ghcr.io/quentinburgniard/squirrelli:0.0.16
           resources:
             requests:
               cpu: "250m"
