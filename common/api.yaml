@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/quentinburgniard/api:5.1.91
+          image: ghcr.io/quentinburgniard/api:5.1.92
           env:
             - name: DB_HOST
               value: "db"
